@@ -1,0 +1,69 @@
+oiiiiii
+
+<!-- <div class="d-flex login-container">
+    <div
+      class="bg-white login-image h-100 d-flex flex-column align-items-center justify-content-center"
+    >
+      <div>
+        <img class="logo" src="\assets\logos\zi_bg_white_2.jpg" />
+      </div>
+    </div>
+    <div
+      class="login-form h-100 d-flex flex-column align-items-center justify-content-center"
+    >
+      <form
+        *ngIf="isLoginPageSelected"
+        class="d-flex flex-column s-p-6"
+        [formGroup]="form"
+      >
+        <h1>Login</h1>
+        <p>
+          Entre com as suas credenciais para acessar o 
+          <strong class="c-hyperlink">What to play</strong>
+        </p>
+        <app-input
+          class="s-mt-3"
+          [label]="'email' | transloco"
+          [email]="true"
+          [formControlRef]="form.controls.email"
+        >
+        </app-input>
+        <app-input-password
+          class="s-mt-3"
+          [label]="'password' | transloco"
+          [formControlRef]="form.controls.senha"
+        >
+        </app-input-password>
+        <span 
+          class="s-underline c-hyperlink cursor-pointer"
+          role="button"
+          (click)="isLoginPageSelected = false"
+        >
+          Esqueci minha senha
+        </span>
+        <button
+          class="s-mt-4 text-uppercase"
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid"
+          [spinner]="isLoadingSubject | async"
+          (click)="authenticate()"
+        >
+          <span class="c-white">Acessar</span>
+        </button>
+        <button
+          type="button"
+          class="s-mt-4 text-uppercase"
+          mat-stroked-button
+          color="accent"
+          routerLink="/authentication/register"
+        >
+          Cadastrar-se
+        </button>
+      </form>
+      <div *ngIf="!isLoginPageSelected">
+        <app-forgot-password (back)="isLoginPageSelected = true">
+        </app-forgot-password>
+      </div>
+    </div>
+  </div> -->
