@@ -7,7 +7,7 @@ def listar_usuarios(con):
     cursor.execute(sqlcode)
 
     for usuario in cursor:
-        return(f"Usuario: {usuario['idUSuario']} Nome: {usuario['nomeUSuario']} Nome completo: {usuario['nomeCompleto']} Jogos do usuário: {usuario['jogosUsuario']} dataRegistro {usuario['dataRegistro']}Email: {usuario['emailUsuario']} Tipo Usuário {usuario['tipoUsuario']}")
+        return(f"Usuario: {usuario['idUSuario']} <br> Nome: {usuario['nomeUSuario']} <br> Nome completo: {usuario['nomeCompleto']} <br> Jogos do usuário: {usuario['jogosUsuario']} <br> Data de Registro: {usuario['dataRegistro']} <br> Email: {usuario['emailUsuario']} <br> Tipo Usuário: {usuario['tipoUsuario']} <br><br>")
 
     cursor.close()
     con.commit()

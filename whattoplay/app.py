@@ -7,7 +7,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def main ():
-  return listar_usuarios(con)
+  html = "<h1>Lista de Usuários</h1> <br>"
+  return html + listar_usuarios(con)
 
 if __name__=='__main__':
   app.run(debug=True)
