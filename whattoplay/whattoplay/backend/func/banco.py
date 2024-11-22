@@ -1,18 +1,28 @@
-from whattoplay.backend.func.conexao_bd import conexao_abrir,conexao_fechar
+from whattoplay.backend.func.conexao_bd import conexao_abrir, conexao_fechar
 
+# Abrir a conexão
 con = conexao_abrir("junction.proxy.rlwy.net", "root", "uXoouZATPTMRXWqFnlUJgRxHozhruwzx", "whattoplay", 59391)
+
 def listar_usuarios(con):
-    cursor = con.cursor(dictionary=True)  # Criar o cursor com a opção de retorno como dicionário
-    sqlcode = "SELECT * FROM Usuario"
-    cursor.execute(sqlcode)
+    with con.cursor(dictionary=True) as cursor:
+        cursor.execute("SELECT * FROM Usuario")
+        usuarios = cursor.fetchall() 
+        
+        # Acumula os resultados em uma string
+        resultado = ""
+        for usuario in usuarios:
+            resultado += (
+                f"Usuario: {usuario['idUsuario']} <br> "
+                f"Nome: {usuario['nomeUsuario']} <br> "
+                f"Nome completo: {usuario['nomeCompleto']} <br> "
+                f"Jogos do usuário: {usuario['jogosUsuario']} <br> "
+                f"Data de Registro: {usuario['dataRegistro']} <br> "
+                f"Email: {usuario['emailUsuario']} <br> "
+                f"Tipo Usuário: {usuario['tipoUsuario']} <br><br>"
+            )
+        
+        return resultado
 
-    for usuario in cursor:
-        return(f"Usuario: {usuario['idUSuario']} <br> Nome: {usuario['nomeUSuario']} <br> Nome completo: {usuario['nomeCompleto']} <br> Jogos do usuário: {usuario['jogosUsuario']} <br> Data de Registro: {usuario['dataRegistro']} <br> Email: {usuario['emailUsuario']} <br> Tipo Usuário: {usuario['tipoUsuario']} <br><br>")
-
-    cursor.close()
-    con.commit()
-
-listar_usuarios(con)
-
+html_usuarios = listar_usuarios(con)
+print(html_usuarios)
 conexao_fechar(con)
-
