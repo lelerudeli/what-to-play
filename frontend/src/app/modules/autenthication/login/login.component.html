@@ -1,1 +1,51 @@
-<p>login works!</p>
+<div class="d-flex login-container">
+    <div class="bg-white login-image h-100 d-flex flex-column align-items-center justify-content-center">
+        <div>
+            <img class="logo" src="\assets\logos\zi_bg_white_2.jpg" />
+        </div>
+    </div>
+    <div class="login-form h-100 d-flex flex-column align-items-center justify-content-center">
+        <form 
+        *ngIf="isLoginPageSelected"
+        class="d-flex flex-column s-p-6"
+        [formGroup]="form">
+            <h1>Login</h1>
+
+            <p>
+                Faça o seu login para entrar no " 
+                <strong class="c-hyperlink">What to Play?</strong>"
+              </p>
+
+              <input type="email" label="Email" placeholder="Insira seu e-mail" formControlName="email">
+              <input type="password" label="Senha" placeholder="Insira sua senha" formControlName="senha">
+
+              <span 
+              class="s-underline c-hyperlink cursor-pointer"
+              role="button"
+              (click)="isLoginPageSelected = false"
+            >
+              Esqueceu sua senha?
+            </span>
+            <button
+            class="s-mt-4 text-uppercase"
+            color="primary"
+            [disabled]="form.invalid"
+            (click)="authenticate()"
+          >
+            <span class="c-white">Acessar</span>
+          </button>
+          <button
+            type="button"
+            class="s-mt-4 text-uppercase"
+            color="accent"
+            routerLink="/authentication/register"
+          >
+            Cadastrar
+          </button>
+        </form>
+
+    </div>
+    <div *ngIf="!isLoginPageSelected">
+      <app-forgot-password (back)="isLoginPageSelected = true"></app-forgot-password>
+    </div> 
+</div> 
