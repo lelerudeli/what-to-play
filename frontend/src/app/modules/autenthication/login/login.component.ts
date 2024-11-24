@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Login } from '../../../shared/models/login.models';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { PythonService } from '../../../shared/services/python.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   isLoginPageSelected: boolean = true;
 
   form: FormGroup = new FormGroup({
@@ -23,7 +23,12 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
+    private service: PythonService
   ) {}
+
+  ngOnInit(): void {
+    this.service.getAll();
+  }
 
   authenticate(): void {
     this.isLoadingSubject.next(true);
