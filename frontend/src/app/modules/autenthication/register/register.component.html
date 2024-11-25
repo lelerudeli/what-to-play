@@ -1,1 +1,31 @@
-<p>register works!</p>
+<div class="d-flex login-container">
+  <div class="bg-white login-image h-100 d-flex flex-column align-items-center justify-content-center">
+    <div>
+      <img class="logo" src="\assets\logos\zi_bg_white_2.jpg" alt="Logo What to Play?" />
+    </div>
+  </div>
+
+  <!-- forms de cadastro -->
+  <div class="login-form h-100 d-flex flex-column align-items-center justify-content-center">
+    <form class="d-flex flex-column s-p-6">
+      <h1>Cadastro de Usuário</h1>
+      <p>
+        Faça o seu cadastro para entrar no
+        "<strong class="c-hyperlink">What to Play?</strong>"
+      </p>
+
+      <input type="text" label="Nome" placeholder="Insira seu nome" required />
+      <input type="email" label="Email" placeholder="Insira seu e-mail" required />
+      <input type="password" label="Senha" placeholder="Insira sua senha" required />
+      <input type="password" label="Confirme sua senha" placeholder="Confirme sua senha" required />
+      <input type="date" label="Data de Nascimento" placeholder="Insira sua data de nascimento" required />
+
+      <button type="submit" class="s-mt-4 text-uppercase" color="primary">
+        <span class="c-white">Cadastrar</span>
+      </button>
+      <button type="button" class="s-mt-4 text-uppercase" color="accent" routerLink="/authentication/login">
+        Voltar ao Login
+      </button>
+    </form>
+  </div>
+</div>
