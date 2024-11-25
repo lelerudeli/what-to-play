@@ -1,24 +1,40 @@
-<div class="d-flex login-container">
-  <div class="bg-white login-image h-100 d-flex flex-column align-items-center justify-content-center">
-    <div>
-      <img class="logo" src="\assets\logos\zi_bg_white_2.jpg" alt="Logo What to Play?" />
-    </div>
+<div class="register-container d-flex flex-column vh-100">
+  <!-- Logo e Mensagem -->
+  <div class="register-header text-center d-flex align-items-center justify-content-center p-4">
+    <img class="logo" src="\assets\logos\zi_bg_white_2.jpg" alt="Logo What to Play?" />
+    <h1 class="fw-bold">Cadastro de Usuário</h1>
+    <p>
+      Faça o seu cadastro para entrar no
+      "<strong class="c-hyperlink">What to Play?</strong>"
+    </p>
   </div>
 
   <!-- forms de cadastro -->
-  <div class="login-form h-100 d-flex flex-column align-items-center justify-content-center">
+  <div class="register-form d-flex flex-column align-items-center justify-content-center px-4">
     <form class="d-flex flex-column s-p-6">
-      <h1>Cadastro de Usuário</h1>
-      <p>
-        Faça o seu cadastro para entrar no
-        "<strong class="c-hyperlink">What to Play?</strong>"
-      </p>
 
-      <input type="text" label="Nome" placeholder="Insira seu nome" required />
-      <input type="email" label="Email" placeholder="Insira seu e-mail" required />
-      <input type="password" label="Senha" placeholder="Insira sua senha" required />
-      <input type="password" label="Confirme sua senha" placeholder="Confirme sua senha" required />
-      <input type="date" label="Data de Nascimento" placeholder="Insira sua data de nascimento" required />
+
+      <!-- Campo de E-mail -->
+      <div class="form-group mb-3">
+        <input type="email" class="form-control" placeholder="Insira seu e-mail" formControlName="email" />
+      </div>
+
+      <!-- Campo de Senha -->
+      <div class="form-group mb-3">
+        <input type="password" class="form-control" label="Senha" placeholder="Insira sua senha" formControlName="senha"/>
+      </div>
+
+      <!-- Campo de Confirmar Senha -->
+      <div class="form-group mb -3">
+        <input type="password" class="form-control" label="Confirme sua senha" placeholder="Confirme sua senha" formControlName="senha" />
+      </div>
+
+      <!-- Campo de Data de Nascimento -->
+      <div class="form-group mb-3">
+        <label for="data-nascimento">Data de Nascimento:</label>
+        <input type="date" class="form-control" id="data-nascimento" formControlName="dataDeNascimento"  />
+      </div>
+      
 
       <button type="submit" class="s-mt-4 text-uppercase" color="primary">
         <span class="c-white">Cadastrar</span>
