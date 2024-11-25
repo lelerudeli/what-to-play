@@ -3,8 +3,8 @@
     margin-bottom: 0.5rem;
   }
   
-  .text-primary {
-    color: #007bff; /* Azul Bootstrap */
+  h1 {
+    color: #0051ff; /* Azul Bootstrap */
   }
   
   .text-accent {
