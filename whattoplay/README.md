@@ -1,8 +1,11 @@
 # Para Rodar (Precisa de poetry instalado):
 
 <pre>
-poetry shell
+Na pasta: \what-to-play\whattoplay
+
 poetry install
+poetry shell
+
 </pre>
 
 ## Ctrl + Shift + P - Python Select Interpreter (Selecionar ambiente poetry)
