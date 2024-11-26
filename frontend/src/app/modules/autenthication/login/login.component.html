@@ -1,51 +1,74 @@
-<div class="d-flex login-container">
-    <div class="bg-white login-image h-100 d-flex flex-column align-items-center justify-content-center">
-        <div>
-            <img class="logo" src="\assets\logos\zi_bg_white_2.jpg" />
-        </div>
+<div class="login-container d-flex flex-column justify-content-center gap-4 vh-100">
+  <!-- Logo e Mensagem -->
+  <div class="login-header text-center d-flex flex-start p-3">
+    <img src="/assets/image-removebg-preview.png" alt="Logo What to Play?" class="logo mb-3" width="70" />
+    <div *ngIf="isLoginPageSelected" class="text-start">
+      <h1 class="text-primary fw-bold" >Login</h1>
+      <p>
+        Acesse o
+        <strong>"What to Play?"</strong>
+      </p>
     </div>
-    <div class="login-form h-100 d-flex flex-column align-items-center justify-content-center">
-        <form 
-        *ngIf="isLoginPageSelected"
-        class="d-flex flex-column s-p-6"
-        [formGroup]="form">
-            <h1>Login</h1>
+  </div>
 
-            <p>
-                Faça o seu login para entrar no " 
-                <strong class="c-hyperlink">What to Play?</strong>"
-              </p>
+  <!-- Formulário de Login -->
+  <div class="login-form d-flex flex-column align-items-center justify-content-center px-4">
+    <form
+      *ngIf="isLoginPageSelected"
+      class="w-100"
+      [formGroup]="form"
+    >
+      <!-- Campo de E-mail -->
+      <div class="form-group mb-3">
+        <input 
+          type="email"
+          class="form-control"
+          placeholder="Insira seu e-mail"
+          formControlName="email"
+        />
+      </div>
+      
+      <!-- Campo de Senha -->
+      <div class="form-group mb-1">
+        <input 
+          type="password"
+          class="form-control"
+          placeholder="Insira sua senha"
+          formControlName="senha"
+        />
+      </div>
 
-              <input type="email" label="Email" placeholder="Insira seu e-mail" formControlName="email">
-              <input type="password" label="Senha" placeholder="Insira sua senha" formControlName="senha">
+      <!-- Esqueceu a Senha -->
+      <div class="text-start mb-5">
+        <span
+          class="text-accent cursor-pointer"
+          role="button"
+          (click)="isLoginPageSelected = false"
+        >
+          Esqueceu sua senha?
+        </span>
+      </div>
 
-              <span 
-              class="s-underline c-hyperlink cursor-pointer"
-              role="button"
-              (click)="isLoginPageSelected = false"
-            >
-              Esqueceu sua senha?
-            </span>
-            <button
-            class="s-mt-4 text-uppercase"
-            color="primary"
-            [disabled]="form.invalid"
-            (click)="authenticate()"
-          >
-            <span class="c-white">Acessar</span>
-          </button>
-          <button
-            type="button"
-            class="s-mt-4 text-uppercase"
-            color="accent"
-            routerLink="/authentication/register"
-          >
-            Cadastrar
-          </button>
-        </form>
+      <!-- Botões de Ação -->
+      <button
+        class="btn btn-primary w-100 mb-3 text-uppercase"
+        [disabled]="form.invalid"
+        (click)="authenticate()"
+      >
+        Acessar
+      </button>
+      <button
+        type="button"
+        class="btn btn-cadastro w-100 text-uppercase"
+        routerLink="/authentication/register"
+      >
+        Cadastrar
+      </button>
+    </form>
+  </div>
 
-    </div>
-    <div *ngIf="!isLoginPageSelected">
-      <app-forgot-password (back)="isLoginPageSelected = true"></app-forgot-password>
-    </div> 
-</div> 
+  <!-- Esqueci a Senha -->
+  <div *ngIf="!isLoginPageSelected" class="forgot-password w-100">
+    <app-forgot-password (back)="isLoginPageSelected = true"></app-forgot-password>
+  </div>
+</div>

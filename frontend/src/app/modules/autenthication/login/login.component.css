@@ -1,0 +1,48 @@
+h1 {
+  font-family: "Archivo Black";
+  font-size: 2.2rem;
+}
+
+.text-start p {
+  font-weight: 500;
+}
+
+.text-start strong {
+  color: #ba0b11;
+}
+
+.text-accent {
+  color: #35aeff;
+  text-decoration: underline;
+}
+
+.form-control {
+  font-family: "Archivo Black";
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+}
+
+.btn {
+  font-family: "Archivo Black";
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.btn-cadastro {
+  color: #ba0b11;
+  border: solid 1px #ba0b11;
+
+  &:hover {
+    background-color: #ba0b11;
+    color: #e9e9e9;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.vh-100 {
+  height: 100vh;
+}

@@ -1,31 +1,35 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { isAuthenticatedGuard } from './shared/guards/auth.guard';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 
-export const routes: Routes = [
-    {
-        path: 'authentication',
-        loadChildren: () =>
-          import('./modules/autenthication/autenthications.module').then(
-            (m) => m.AuthenticationModule
-          )
-      },
-      {
-        path: 'home',
-        canActivate: [isAuthenticatedGuard],
-        loadChildren: () =>
-          import('./core/core-module').then(
-            (m) => m.CoreModule
-          ),
-      },
-      {
-        path: '**',
-        redirectTo: 'authentication/login'
-      },
-];
+//import { AlertService } from './shared/services/alert.service';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app.routes';
 
+
+registerLocaleData(localePt);
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule
+  ],
+  providers: [
+    //AlertService,
+    {
+      provide: LOCALE_ID,
+      useValue: 'pt-BR',
+    },
+    {
+      provide: DEFAULT_CURRENCY_CODE,
+      useValue: 'BRL',
+    },
+  ],
 })
-export class AppRoutingModule { }
+export class AppModule {}

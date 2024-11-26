@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthenticationRoutingModule } from './autenthication-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
