@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.12"
 flask = "^3.1.0"
 mysql-connector-python = "^9.1.0"
+flask-cors = "^5.0.0"
 
 
 [build-system]
