@@ -12,6 +12,15 @@ def listar_classificacoes_etarias(app):
     conexao_fechar(con)  # Fecha a conexão
     return classificacoes_etarias
 
+# idClassificacao
+# sexo
+# bebida
+# entorpecentes
+# psicossomaticos
+# linguagemImpropria
+# violencia
+# classificacao
+
 # def lista_classificacoes_etarias(classificacoes_etarias):
 #     """Exibe a lista de classificações etárias do banco de dados como string"""
     

@@ -12,6 +12,11 @@ def listar_favoritos(app):
     conexao_fechar(con)  # Fecha a conexão
     return favoritos
 
+# idFavorito
+# Usuario_idUsuario
+# Jogo_idJogo
+# dataFavorito
+
 # def lista_favoritos(favoritos):
 #     """Exibe a lista de favoritos do banco de dados como string"""
     

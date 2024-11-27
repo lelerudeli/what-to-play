@@ -11,6 +11,16 @@ def listar_jogos(app):
     
     conexao_fechar(con)  # Fecha a conexão
     return jogos
+
+# #idJogo
+# nomeJogo
+# regraJogo
+# tipoJogo (enum)
+# faixaEtaria
+# numeroCurtidas
+# numeroJogadores
+# Usuario_idUsuario
+# ClassificacaoEtaria_idClassificacao
     
 # def lista_jogos(jogos):
 #     """Exibe a lista de jogos do banco de dados como string"""

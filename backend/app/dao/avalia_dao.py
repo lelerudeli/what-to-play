@@ -12,6 +12,11 @@ def listar_avaliacoes(app):
     conexao_fechar(con)  # Fecha a conexão
     return avaliacoes
 
+# idAvaliacao
+# dataAvaliacao
+# Jogo_idJogo
+# Usuario_idUsuario
+
 # def lista_avaliacoes(avaliacoes):
 #     """Exibe a lista de avaliações do banco de dados como string"""
     
