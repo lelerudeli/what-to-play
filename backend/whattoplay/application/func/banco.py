@@ -87,6 +87,70 @@ def excluir_usuario(con, id_usuario):
     with con.cursor() as cursor:
         cursor.execute(query, (id_usuario,))
         con.commit()
+        
+def obter_jogos(con):
+    with con.cursor(dictionary=True) as cursor:
+        cursor.execute("SELECT * FROM Jogo")
+        return cursor.fetchall()
+
+def obter_jogo_por_id(con, id_jogo):
+    query = "SELECT * FROM Jogo WHERE idJogo = %s"
+    with con.cursor(dictionary=True) as cursor:
+        cursor.execute(query, (id_jogo,))
+        return cursor.fetchone()
+
+def criar_jogo(con, jogo_infos):
+    query = """
+    INSERT INTO Jogo (
+        nomeJogo, regraJogo, tipoJogo, faixaEtaria, 
+        numeroCurtidas, numeroJogadores, 
+        Usuario_idUsuario, ClassificacaoEtaria_idClassificacao
+    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+    """
+    valores = (
+        jogo_infos['nomeJogo'],
+        jogo_infos['regraJogo'],
+        jogo_infos['tipoJogo'],
+        jogo_infos['faixaEtaria'],
+        jogo_infos['numeroCurtidas'],
+        jogo_infos['numeroJogadores'],
+        jogo_infos['Usuario_idUsuario'],
+        jogo_infos['ClassificacaoEtaria_idClassificacao']
+    )
+    with con.cursor() as cursor:
+        cursor.execute(query, valores)
+        con.commit()
+    return cursor.lastrowid
+
+def atualizar_jogo(con, id_jogo, jogo_infos):
+    query = """
+    UPDATE Jogo
+    SET nomeJogo = %s, regraJogo = %s, tipoJogo = %s, faixaEtaria = %s, 
+        numeroCurtidas = %s, numeroJogadores = %s, 
+        Usuario_idUsuario = %s, ClassificacaoEtaria_idClassificacao = %s
+    WHERE idJogo = %s
+    """
+    valores = (
+        jogo_infos['nomeJogo'],
+        jogo_infos['regraJogo'],
+        jogo_infos['tipoJogo'],
+        jogo_infos['faixaEtaria'],
+        jogo_infos['numeroCurtidas'],
+        jogo_infos['numeroJogadores'],
+        jogo_infos['Usuario_idUsuario'],
+        jogo_infos['ClassificacaoEtaria_idClassificacao'],
+        id_jogo
+    )
+    with con.cursor() as cursor:
+        cursor.execute(query, valores)
+        con.commit()
+
+def excluir_jogo(con, id_jogo):
+    query = "DELETE FROM Jogo WHERE idJogo = %s"
+    with con.cursor() as cursor:
+        cursor.execute(query, (id_jogo,))
+        con.commit()
+
     
 html_usuarios = obter_usuarios(con)
 conexao_fechar(con)
