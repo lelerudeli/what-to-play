@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app.routes';
+import { ToastrModule } from 'ngx-toastr';
+import { AlertService } from './shared/services/alert-service/alert.service';
 
 
 registerLocaleData(localePt);
@@ -18,10 +20,17 @@ registerLocaleData(localePt);
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(
+      {
+        timeOut: 3000,
+        positionClass: 'toast-top-right',
+        preventDuplicates: true 
+      }
+    ),
     HttpClientModule
   ],
   providers: [
-    //AlertService,
+    AlertService,
     {
       provide: LOCALE_ID,
       useValue: 'pt-BR',
