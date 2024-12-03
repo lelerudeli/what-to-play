@@ -1,8 +1,8 @@
-<div class="login-container d-flex flex-column justify-content-center gap-4 vh-100">
+<div class="login-container d-flex flex-column justify-content-center gap-2 vh-100">
   <!-- Logo e Mensagem -->
-  <div class="login-header text-center d-flex flex-start p-3">
-    <img src="/assets/image-removebg-preview.png" alt="Logo What to Play?" class="logo mb-3" width="70" />
-    <div *ngIf="isLoginPageSelected" class="text-start">
+  <div  *ngIf="isLoginPageSelected" class="login-header text-center d-flex flex-start p-3">
+    <img src="/assets/image-removebg-preview.png" alt="Logo What to Play?" class="mb-4" width="70" />
+    <div class="text-start">
       <h1 class="text-primary fw-bold" >Login</h1>
       <p>
         Acesse o
@@ -51,7 +51,7 @@
 
       <!-- Botões de Ação -->
       <button
-        class="btn btn-primary w-100 mb-3 text-uppercase"
+        class="btn btn-primary w-100 mb-2 text-uppercase"
         [disabled]="form.invalid"
         (click)="authenticate()"
       >

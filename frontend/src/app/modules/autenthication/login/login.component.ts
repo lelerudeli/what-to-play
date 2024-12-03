@@ -15,7 +15,7 @@ export class LoginComponent{
   isLoginPageSelected: boolean = true;
 
   form: FormGroup = new FormGroup({
-    email: new FormControl(null, Validators.required),
+    email: new FormControl(null, [Validators.required, Validators.email]),
     senha: new FormControl(null, Validators.required),
   });
 

@@ -1,0 +1,48 @@
+.home-page {
+    font-family: 'Archivo Black';
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow:
+        3px 3px 0 #000,
+        -3px 3px 0 #000,
+        3px -3px 0 #000,
+        -3px -3px 0 #000;
+}
+
+.option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.option p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.all-games-btn {
+    background-color: #ba0b11;
+    color: white;
+    border: 2px solid black;
+    padding: 10px;
+    border-radius: 30px;
+    font-weight: 300;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-shadow:
+        2px 2px 0 #000,
+        -2px 2px 0 #000,
+        2px -2px 0 #000,
+        -2px -2px 0 #000;
+}
+
+.all-games-btn:hover {
+    background-color: #ad0000;
+}
