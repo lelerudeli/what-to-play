@@ -91,7 +91,7 @@ def excluir_usuario(con, id_usuario):
 def obter_jogos(con):
     with con.cursor(dictionary=True) as cursor:
         cursor.execute("SELECT * FROM Jogo")
-        return cursor.fetchall()
+        return cursor.fetchall()  
 
 def obter_jogo_por_id(con, id_jogo):
     query = "SELECT * FROM Jogo WHERE idJogo = %s"
@@ -151,6 +151,13 @@ def excluir_jogo(con, id_jogo):
         cursor.execute(query, (id_jogo,))
         con.commit()
 
+def obter_jogo_por_usuario(con, id_usuario):
+    query = "SELECT * FROM Jogo WHERE Usuario_idUsuario = %s"
+    with con.cursor(dictionary=True) as cursor:
+        cursor.execute(query, (id_usuario,))
+        jogos = cursor.fetchall() #Retorna todos os resultados o Fetchone só retorna um
+        
+        return jogos
     
 html_usuarios = obter_usuarios(con)
 conexao_fechar(con)
