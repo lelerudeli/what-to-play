@@ -33,17 +33,19 @@ def cadastro():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    if request.method == 'POST':
-        usuarios = jsonify(obter_usuarios(con))
-
-        nome_usuario = request.form['nomeUsuario']
-        senha = request.form['senhaUsuario']
-        usuario = next((user for user in usuarios if user['nomeUsuario'] == nome_usuario and user['senhaUsuario'] == senha), None)
-        if usuario:
-            session['usuario_logado'] = usuario['idUsuario']
-            return redirect(url_for('index'))
-        else:
+    if request.method == 'GET':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        usuarios = (obter_usuarios(con))
+        print(usuarios)
+        # for user in usuarios:
+        #     print(user['idUsuario'], user['nomeUsuario'])
+        print(usuarios['idUsuario'])
+        
+        obter_usuario_por_id(con,1)
+    else:
             return "Usuário ou senha inválidos."
+    
     return render_template('login.html')
 
 @app.route('/api')
