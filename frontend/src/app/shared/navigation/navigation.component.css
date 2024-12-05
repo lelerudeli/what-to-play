@@ -1,0 +1,30 @@
+.custom-navbar {
+    background-color: #f0f0f0;
+    border-radius: 50px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .custom-navbar .nav-item {
+    flex-grow: 1;
+    text-align: center;
+  }
+  .custom-navbar .nav-item .material-icons {
+    font-size: 24px;
+    color: #1a1a1a;
+  }
+  .custom-navbar .nav-item .add-button {
+    background-color: #d32f2f;
+    color: #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }

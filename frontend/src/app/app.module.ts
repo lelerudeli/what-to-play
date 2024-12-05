@@ -10,6 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app.routes';
 import { ToastrModule } from 'ngx-toastr';
 import { AlertService } from './shared/services/alert-service/alert.service';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from './shared/shared.module';
 
 
 registerLocaleData(localePt);
@@ -27,7 +30,9 @@ registerLocaleData(localePt);
         preventDuplicates: true 
       }
     ),
-    HttpClientModule
+    HttpClientModule,
+    SharedModule,
+    MatIconModule
   ],
   providers: [
     AlertService,
@@ -39,6 +44,7 @@ registerLocaleData(localePt);
       provide: DEFAULT_CURRENCY_CODE,
       useValue: 'BRL',
     },
+    provideAnimationsAsync(),
   ],
 })
 export class AppModule {}
