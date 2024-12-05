@@ -5,7 +5,8 @@ import { RegisterComponent } from './register/register.component';
 import { AuthenticationRoutingModule } from './autenthication-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../../shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     AuthenticationRoutingModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: []
