@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, url_for, redirect
+from functools import wraps
 from whattoplay.application.func.banco import *
+from whattoplay.application.func.funcoes import *
 from flask_cors import CORS
 
 # Definição de rotas aqui
@@ -7,28 +9,72 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+
+def requer_admin(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        usuarios = jsonify(obter_usuarios(con))
+
+        if 'usuario_logado' in session:
+            usuario = next((user for user in usuarios if user['idUsuario'] == session['usuario_logado']), None)
+            if usuario and usuario['tipoUsuario'] == 'admin':
+                return f(*args, **kwargs)
+        return redirect(url_for('login'))  # Redireciona para login se não for admin
+    return decorated_function
+
 @app.route('/')
 def index():
-    """Retorna uma página HTML com links para todas as rotas da API."""
-    return render_template('index.html')
+    return redirect(url_for('api'))
 
-@app.route('/usuarios', methods=['GET'])
+@app.route('/cadastro')
+def cadastro():
+    return
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        usuarios = (obter_usuarios(con))
+        print(usuarios)
+        for user in usuarios:
+            if user['idUsuario'] == username:
+                id = user['idUsuario']
+                return jsonify(obter_usuario_por_id(con, id))
+    else:
+            return "Usuário invalido"
+    
+    return render_template('login.html')
+
+@app.route('/api')
+@requer_admin
+def api():
+    usuarios = jsonify(obter_usuarios(con))
+    if 'usuario_logado' in session:
+        usuarios = jsonify(obter_usuarios(con))
+        usuario = next((user for user in usuarios if user['idUsuario'] == session['usuario_logado']), None)
+        return f"Bem-vindo(a), {usuario['nomeCompleto']}!"
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/api/usuarios', methods=['GET'])
 def get_usuarios():
     return jsonify(obter_usuarios(con))
 
-@app.route('/jogos', methods=['GET'])
+@app.route('/api/jogos', methods=['GET'])
 def get_jogos():
     return jsonify(obter_jogos(con))
 
-@app.route('/avaliacoes', methods=['GET'])
+@app.route('/api/avaliacoes', methods=['GET'])
 def get_avaliacoes():
     return jsonify(obter_avaliacoes(con))
 
-@app.route('/favoritos', methods=['GET'])
+@app.route('/api/favoritos', methods=['GET'])
 def get_favoritos():
     return jsonify(obter_favoritos(con))
 
-@app.route('/classificacoes_etarias', methods=['GET'])
+@app.route('/api/classificacoes_etarias', methods=['GET'])
 def get_classificacoes_etarias():
     return jsonify(obter_classificacoes_etarias(con))
 

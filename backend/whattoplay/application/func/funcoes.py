@@ -1,2 +1,1 @@
-def funcao_teste():
-  return 'ok'
+from flask import request,session,redirect,url_for
