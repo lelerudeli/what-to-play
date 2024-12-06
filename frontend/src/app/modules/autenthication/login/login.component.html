@@ -66,12 +66,10 @@
       </button>
     </form>
   </div>
-
   <!-- Esqueci a Senha -->
   <div *ngIf="!isLoginPageSelected" class="forgot-password w-100">
     <app-forgot-password (back)="isLoginPageSelected = true"></app-forgot-password>
   </div>
 
-  <app-navigation></app-navigation>
   
 </div>
