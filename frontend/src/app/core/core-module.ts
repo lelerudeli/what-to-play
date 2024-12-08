@@ -3,11 +3,17 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { HomePageComponent } from './home-page/home-page.component';
+import { BaralhoComponent } from './home-page/baralho/baralho.component';
+import { ConversaComponent } from './home-page/conversa/conversa.component';
+import { PapelComponent } from './home-page/papel/papel.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    HomePageComponent
+    HomePageComponent,
+    BaralhoComponent,
+    ConversaComponent,
+    PapelComponent
   ],
   imports: [
     CoreRoutingModule,

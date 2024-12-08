@@ -1,1 +1,43 @@
+<div class="games-list-container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">?</div>
+      <button class="filter-button">Todos os jogos</button>
+      <button class="settings-button">
+        <i class="fas fa-cog"></i> <!-- Ícone de configuração -->
+      </button>
+    </div>
+  
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" placeholder="Search" />
+    </div>
+  
+    <!-- Games List -->
+    <ul class="games-list">
+      <li *ngFor="let game of games" class="game-item">
+        <span class="game-name">{{ game.name }}</span>
+        <div class="game-actions">
+          <i class="fas fa-trophy"></i> <!-- Ícone de troféu -->
+          <i class="fas fa-heart"></i> <!-- Ícone de coração -->
+        </div>
+      </li>
+    </ul>
+  
+    <!-- Footer Navigation -->
+    <div class="footer">
+      <button class="nav-button">
+        <i class="fas fa-home"></i>
+      </button>
+      <button class="nav-button">
+        <i class="fas fa-circle"></i>
+      </button>
+      <button class="nav-button">
+        <i class="fas fa-user"></i>
+      </button>
+    </div>
+  </div>
+  
+
+
 <app-navigation></app-navigation>
