@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from '../shared/header/header.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { BaralhoComponent } from './home-page/baralho/baralho.component';
 import { ConversaComponent } from './home-page/conversa/conversa.component';

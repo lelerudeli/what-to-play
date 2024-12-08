@@ -12,7 +12,7 @@ import { AllGamesRoutingModule } from "./all-games-routing.module";
   imports: [
     SharedModule,
     AllGamesRoutingModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [],
   bootstrap: []
