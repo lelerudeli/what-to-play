@@ -22,31 +22,6 @@ def requer_admin(f):
         return redirect(url_for('login'))  # Redireciona para login se não for admin
     return decorated_function
 
-@app.route('/')
-def index():
-    return redirect(url_for('api'))
-
-@app.route('/cadastro')
-def cadastro():
-    return
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        usuarios = (obter_usuarios(con))
-        print(usuarios)
-        for user in usuarios:
-            if user['idUsuario'] == username:
-                id = user['idUsuario']
-                return jsonify(obter_usuario_por_id(con, id))
-    else:
-            return "Usuário invalido"
-    
-    return render_template('login.html')
-
 @app.route('/api')
 @requer_admin
 def api():
