@@ -4,11 +4,13 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { AppModule } from '../app.module';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './header/header.component';
+import { CardsComponent } from './cards/cards.component';
 
 @NgModule({
   declarations: [
     NavigationComponent,
-    HeaderComponent
+    HeaderComponent,
+    CardsComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { HeaderComponent } from './header/header.component';
   ],
   exports: [
     NavigationComponent,
-    HeaderComponent
+    HeaderComponent,
+    CardsComponent
   ],
   providers: [],
   bootstrap: []

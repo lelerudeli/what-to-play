@@ -5,22 +5,19 @@
   </div>
 
   <!-- Search Bar -->
-  <div class="search-bar">
-    <input type="text" placeholder="Search"/> 
-    <span class="material-icons" style="font-size: 36px;">search</span>
-
+  <div class="search-bar d-flex flex-row align-items-center">
+    <span class="material-icons" style="font-size: 30px;">search</span> 
+    <input type="text" placeholder="Search"> 
+    
   </div>
 
   <!-- Games List -->
-  <ul class="games-list">
-    <li *ngFor="let game of games" class="game-item">
-      <span class="game-name">{{ game.name }}</span>
-      <div class="game-actions">
-        <i class="fas fa-trophy"></i> <!-- Ícone de troféu -->
-        <i class="fas fa-heart"></i> <!-- Ícone de coração -->
-      </div>
-    </li>
-  </ul>
+  <div *ngFor="let game of games">
+    <app-cards
+    [name]="game.nome"
+    [type]="game.tipo"
+    [classificacao]="game.classificacao"></app-cards>
+  </div>
 
   <div>
     <app-navigation></app-navigation>
