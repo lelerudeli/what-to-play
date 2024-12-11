@@ -9,29 +9,14 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+def index ():
+    return redirect(url_for('api'))
 
-def requer_admin(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        usuarios = jsonify(obter_usuarios(con))
-
-        if 'usuario_logado' in session:
-            usuario = next((user for user in usuarios if user['idUsuario'] == session['usuario_logado']), None)
-            if usuario and usuario['tipoUsuario'] == 'admin':
-                return f(*args, **kwargs)
-        return redirect(url_for('login'))  # Redireciona para login se não for admin
-    return decorated_function
 
 @app.route('/api')
-@requer_admin
 def api():
-    usuarios = jsonify(obter_usuarios(con))
-    if 'usuario_logado' in session:
-        usuarios = jsonify(obter_usuarios(con))
-        usuario = next((user for user in usuarios if user['idUsuario'] == session['usuario_logado']), None)
-        return f"Bem-vindo(a), {usuario['nomeCompleto']}!"
-    else:
-        return redirect(url_for('login'))
+    return render_template('index.html')
 
 @app.route('/api/usuarios', methods=['GET'])
 def get_usuarios():
