@@ -15,7 +15,9 @@ export class PythonService {
   ) { }
 
   getAll(): Observable<any> {
-    return this.http.get<any>(`${this.API}/jogos`);
+    return this.http.get<any>(`${this.API}/login`, {
+      responseType: 'text' as 'json'
+    });
   }
 
   

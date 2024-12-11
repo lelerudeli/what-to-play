@@ -1,0 +1,18 @@
+.header {
+    justify-content: space-between;
+}
+
+span{
+    text-shadow: 
+    -2px -2px 0 black, /* Contorno preto */
+    2px -2px 0 black,
+    -2px 2px 0 black,
+    2px 2px 0 black;
+
+    transition: transform 0.2s ease;
+
+    &:hover{
+        transform: scale(1.1);
+    }
+}
+

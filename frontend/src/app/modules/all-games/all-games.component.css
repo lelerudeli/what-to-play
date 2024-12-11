@@ -1,0 +1,18 @@
+.search-bar {
+    position: relative;
+    width: 60%;
+}
+
+.search-bar input {
+    width: 100%;
+    font-size: 16px;
+    border: 2px solid #ba0b11;
+    border-radius: 30px;
+}
+
+.search-bar .material-icons {
+    position: absolute;
+    right: 10px;
+    color: #ba0b11;
+    pointer-events: none;
+}
