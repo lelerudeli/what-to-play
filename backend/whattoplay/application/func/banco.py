@@ -1,4 +1,5 @@
 from whattoplay.application.func.conexao_bd import conexao_abrir, conexao_fechar
+from bcrypt import checkpw
 
 # Abrir a conexão
 con = conexao_abrir("junction.proxy.rlwy.net", "root", "uXoouZATPTMRXWqFnlUJgRxHozhruwzx", "whattoplay", 59391)
@@ -79,6 +80,50 @@ def atualizar_usuario(con, id_usuario, usuario_infos):
         cursor.execute(query, valores)
         con.commit()
         
+def autenticar_usuario(con, login_infos):
+    """Autentica um usuário com base no e-mail e na senha."""
+    
+    query = """
+    SELECT idUsuario, senhaUsuario
+    FROM Usuario
+    WHERE emailUsuario = %s
+    """
+    valores = (login_infos['email'],)  # Certifique-se de que é uma tupla
+    
+    try:
+        with con.cursor() as cursor:
+            cursor.execute(query, valores)
+            resultado = cursor.fetchone()  # Busca uma linha correspondente
+    except Exception as e:
+        print(f"Erro na autenticação: {e}")
+        return None
+    finally:
+        conexao_fechar(con)
+    
+    if resultado:
+        id_usuario, senha_armazenada = resultado
+        # Verifica se a senha fornecida corresponde ao hash armazenado
+        if resultado and senha_armazenada:
+            if checkpw(login_infos['senha'].encode('utf-8'), senha_armazenada.encode('utf-8')):
+                return id_usuario
+        
+    return None
+
+def verificar_email(con, email):
+    query = "SELECT idUsuario, emailUsuario FROM Usuario WHERE emailUsuario = %s"
+    valores = (email,)
+    try:
+        with con.cursor() as cursor:
+            cursor.execute(query, valores)
+            resultado = cursor.fetchone()
+    except Exception as e:
+        print(f"Erro ao verificar e-mail: {e}")
+        return None
+    if resultado:
+        id_usuario, email_usuario = resultado
+        return {"idUsuario": id_usuario, "emailUsuario": email_usuario}
+    return None
+        
 
 def excluir_usuario(con, id_usuario):
     """Remove um usuário do banco de dados."""
@@ -87,17 +132,18 @@ def excluir_usuario(con, id_usuario):
     with con.cursor() as cursor:
         cursor.execute(query, (id_usuario,))
         con.commit()
-        
-def obter_jogos(con):
-    with con.cursor(dictionary=True) as cursor:
-        cursor.execute("SELECT * FROM Jogo")
-        return cursor.fetchall()  
 
 def obter_jogo_por_id(con, id_jogo):
     query = "SELECT * FROM Jogo WHERE idJogo = %s"
     with con.cursor(dictionary=True) as cursor:
         cursor.execute(query, (id_jogo,))
         return cursor.fetchone()
+    
+def obter_jogo_por_tipo(con, tipo_jogo):
+    query = "SELECT * FROM Jogo WHERE tipoJogo = %s"
+    with con.cursor(dictionary=True) as cursor:
+        cursor.execute(query, (tipo_jogo,))
+        return cursor.fetchall()
 
 def criar_jogo(con, jogo_infos):
     query = """
