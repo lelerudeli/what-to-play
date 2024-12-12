@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from '../../../shared/services/alert-service/alert.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -11,9 +12,16 @@ export class ForgotPasswordComponent {
   @Output()
   back: EventEmitter<void> = new EventEmitter();
 
-  emailControl = new FormControl(null, Validators.required);
+  form = new FormGroup({
+    emailControl: new FormControl(null, [Validators.required, Validators.email])
+  });
+
+  constructor(
+    private alertService: AlertService
+  ){}
 
   resetPassword(): void {
+    this.alertService.showSucessMessage('Dados salvos!');
     this.back.emit();
   }
 

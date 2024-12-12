@@ -1,0 +1,25 @@
+<div class="all-games vh-100 justify-content-center p-2">
+
+  <div>
+    <app-header></app-header>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar d-flex flex-row align-items-center">
+    <span class="material-icons" style="font-size: 30px;">search</span> 
+    <input type="text" placeholder="Search"> 
+    
+  </div>
+
+  <!-- Games List -->
+  <div *ngFor="let game of games">
+    <app-cards
+    [name]="game.nome"
+    [type]="game.tipo"
+    [classificacao]="game.classificacao"></app-cards>
+  </div>
+
+  <div>
+    <app-navigation></app-navigation>
+  </div>
+</div>

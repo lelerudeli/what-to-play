@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from '../shared/header/header.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { BaralhoComponent } from './home-page/baralho/baralho.component';
+import { ConversaComponent } from './home-page/conversa/conversa.component';
+import { PapelComponent } from './home-page/papel/papel.component';
 
 const routes: Routes = [
   {
@@ -13,7 +16,21 @@ const routes: Routes = [
       },
       {
         path: 'home-page',
-        component: HomePageComponent
+        component: HomePageComponent,
+        children: [
+          {
+            path: 'baralho',
+            component: BaralhoComponent
+          },
+          {
+            path: 'conversa',
+            component: ConversaComponent
+          },
+          {
+            path: 'papel',
+            component: PapelComponent
+          }
+        ]
       }
      
     ]

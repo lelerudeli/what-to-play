@@ -1,0 +1,36 @@
+.navigation {
+  background-color: aliceblue;
+  border: 2px solid black;
+  border-radius: 30px;
+  color: #001a76;
+  padding: 5px 0px;
+
+  justify-content: space-around;
+}
+
+.add {
+  background-color: #ba0a11;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  transition: transform 0.3s ease; 
+
+  &:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}
+
+.material-icons{
+  font-size: 36px;
+  transition: transform 0.3s ease; 
+
+  &:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}

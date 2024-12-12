@@ -8,14 +8,14 @@ import { Login, LoginResponse } from '../models/login.models';
 })
 export class PythonService {
 
-  readonly API = '/api'
+  readonly API = 'http://127.0.0.1:5000';
 
   constructor(
     private http: HttpClient
   ) { }
 
   getAll(): Observable<any> {
-    return this.http.get<any>(`${this.API}/`, {
+    return this.http.get<any>(`${this.API}/login`, {
       responseType: 'text' as 'json'
     });
   }

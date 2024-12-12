@@ -1,1 +1,17 @@
-<p>cards works!</p>
+<div *ngFor="let card of cards" [ngSwitch]="card.tipo">
+    <div *ngSwitchCase="cardType.BARALHO" class="type">
+        <img src="../../../assets/baralho-removebg-preview.png" alt="">
+        {{type}}
+        {{name}}
+
+    </div>
+
+    <div *ngSwitchCase="cardType.CONVERSA" class="type">
+        <img src="../../../assets/conversa-removebg-preview.png" alt="">
+        {{card.tipo}}
+    </div>
+
+    <div *ngSwitchCase="cardType.PAPEL" class="type">
+        <img src="../../../assets/papel-removebg-preview.png" alt="">
+    </div>
+</div>
