@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { MinimumCards, TypeCardsEnum } from '../../shared/models/cards.model';
+import { MinimumCards, TypeCardsEnum } from '../../../../shared/models/cards.model';
 
 @Component({
-  selector: 'app-all-games',
-  templateUrl: './all-games.component.html',
-  styleUrl: './all-games.component.css'
+  selector: 'app-corpo-dinamico',
+  templateUrl: './corpo-dinamico.component.html',
+  styleUrl: './corpo-dinamico.component.css'
 })
-export class AllGamesComponent {
+export class CorpoDinamicoComponent {
+
 
   games: MinimumCards[] = [
     {
@@ -20,5 +21,4 @@ export class AllGamesComponent {
       classificacao: 'Livre'
     }
   ];
-
 }

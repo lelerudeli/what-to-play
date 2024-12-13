@@ -1,35 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HeaderComponent } from '../shared/header/header.component';
-import { HomePageComponent } from './home-page/home-page.component';
-import { BaralhoComponent } from './home-page/baralho/baralho.component';
-import { ConversaComponent } from './home-page/conversa/conversa.component';
-import { PapelComponent } from './home-page/papel/papel.component';
+import { HeaderComponent } from './header/header.component';
+import { HomePageComponent } from './selector/home-page/home-page.component';
+import { SelectorComponent } from './selector/selector.component';
+import { CorpoDinamicoComponent } from './selector/home-page/corpo-dinamico/corpo-dinamico.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'header',
-        component: HeaderComponent,
-      },
-      {
-        path: 'home-page',
-        component: HomePageComponent,
+        path: 'selector',
+        component: SelectorComponent,
         children: [
           {
-            path: 'baralho',
-            component: BaralhoComponent
+            path: 'home-page',
+            component: HomePageComponent,
+            children: [
+              {
+                path: 'baralho',
+                component: HomePageComponent
+              }
+            ]
           },
-          {
-            path: 'conversa',
-            component: ConversaComponent
-          },
-          {
-            path: 'papel',
-            component: PapelComponent
-          }
         ]
       }
      

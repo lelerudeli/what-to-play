@@ -11,19 +11,12 @@ export const routes: Routes = [
       )
   },
   {
-    path: 'home',
+    path: 'core',
     canActivate: [isAuthenticatedGuard],
     loadChildren: () =>
       import('./core/core-module').then(
         (m) => m.CoreModule
       ),
-  },
-  {
-    path: 'all-games',
-    loadChildren: () =>
-      import('./modules/all-games/all-games.module').then(
-        (m) => m.AllGamesModule
-      )
   },
   {
     path: '**',

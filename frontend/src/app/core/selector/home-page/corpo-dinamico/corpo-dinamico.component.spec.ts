@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConversaComponent } from './conversa.component';
+import { CorpoDinamicoComponent } from './corpo-dinamico.component';
 
-describe('ConversaComponent', () => {
-  let component: ConversaComponent;
-  let fixture: ComponentFixture<ConversaComponent>;
+describe('CorpoDinamicoComponent', () => {
+  let component: CorpoDinamicoComponent;
+  let fixture: ComponentFixture<CorpoDinamicoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConversaComponent]
+      imports: [CorpoDinamicoComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ConversaComponent);
+    fixture = TestBed.createComponent(CorpoDinamicoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

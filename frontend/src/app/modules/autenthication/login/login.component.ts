@@ -27,20 +27,23 @@ export class LoginComponent{
   ) {}
 
   authenticate(): void {
-    this.isLoadingSubject.next(true);
-    this.service.getAll()
-      .pipe(first())
-      .subscribe({
-        next: (login: LoginResponse) => {
-          this.service.storeUserData(login);
-          this.isLoadingSubject.next(false);
-          this.router.navigate(['home/home-page']);
-        },
-        error: (error: HttpErrorResponse) => {
-          console.log('ocorreu um erro', error);
-          this.isLoadingSubject.next(false);
-        },
-      });
+    this.router.navigate(['core/selector']);
+
+  //   this.isLoadingSubject.next(true);
+  //   this.service.getAll()
+  //     .pipe(first())
+  //     .subscribe({
+  //       next: (login: LoginResponse) => {
+  //         this.service.storeUserData(login);
+  //         this.isLoadingSubject.next(false);
+  //         this.router.navigate(['core/selector']);
+  //       },
+  //       error: (error: HttpErrorResponse) => {
+  //         console.log('ocorreu um erro', error);
+  //         this.isLoadingSubject.next(false);
+  //       },
+  //     });
+  // }
   }
 
 }
