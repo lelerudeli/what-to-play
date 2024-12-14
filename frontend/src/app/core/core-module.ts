@@ -5,13 +5,14 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { BaralhoComponent } from './home-page/baralho/baralho.component';
 import { ConversaComponent } from './home-page/conversa/conversa.component';
 import { PapelComponent } from './home-page/papel/papel.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     HomePageComponent,
     BaralhoComponent,
     ConversaComponent,
-    PapelComponent
+    PapelComponent,
   ],
   imports: [
     CoreRoutingModule,

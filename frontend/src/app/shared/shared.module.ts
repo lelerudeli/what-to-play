@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './header/header.component';
 import { CardsComponent } from './cards/cards.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { NavigationModule } from './navigation/navigation.module';
+import { NavigationComponent } from '../core/navigation/navigation.component';
 
 @NgModule({
   declarations: [
