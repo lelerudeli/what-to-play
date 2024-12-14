@@ -1,17 +1,10 @@
-<div *ngFor="let card of cards" [ngSwitch]="card.tipo">
-    <div *ngSwitchCase="cardType.BARALHO" class="type">
-        <img src="../../../assets/baralho-removebg-preview.png" alt="">
-        {{type}}
-        {{name}}
+<div class="card d-flex flex-row justify-content-between align-items-center mt-2 p-2" [ngSwitch]="type">
 
-    </div>
+    <img [src]="getCardImage(type)" alt="" class="" width="45px;">
+    <h5 class="card-title pt-1">{{ name }}</h5>
 
-    <div *ngSwitchCase="cardType.CONVERSA" class="type">
-        <img src="../../../assets/conversa-removebg-preview.png" alt="">
-        {{card.tipo}}
-    </div>
-
-    <div *ngSwitchCase="cardType.PAPEL" class="type">
-        <img src="../../../assets/papel-removebg-preview.png" alt="">
+    <div class="d-flex flex-row justify-content-between align-items-center gap-1" [ngSwitch]="classificacao">
+        <img [src]="getCardClassificacaoImage(classificacao)" alt="" width="28px;" height="28px;" class="classificacao">
+        <mat-icon class="favorite" (click)="toggleCurtida()">{{ isFavorite ? 'favorite' : 'favorite_border'}}</mat-icon>
     </div>
 </div>

@@ -1,13 +1,12 @@
 .search-bar {
     position: relative;
-    width: 60%;
 }
 
 .search-bar input {
     width: 100%;
-    font-size: 16px;
+    font-size: 12px;
     border: 2px solid #ba0b11;
-    border-radius: 30px;
+    border-radius: 40px;
 }
 
 .search-bar .material-icons {
@@ -15,4 +14,10 @@
     right: 10px;
     color: #ba0b11;
     pointer-events: none;
+}
+
+.navigation {
+    width: 90%;
+    position: fixed;
+    bottom: 0;
 }

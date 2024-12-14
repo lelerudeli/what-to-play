@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MinimumCards, TypeCardsEnum } from '../../shared/models/cards.model';
+import { ClassificacaoCards, MinimumCards, TypeCardsEnum } from '../../shared/models/cards.model';
 
 @Component({
   selector: 'app-all-games',
@@ -12,12 +12,12 @@ export class AllGamesComponent {
     {
       tipo: TypeCardsEnum.BARALHO,
       nome: 'Truco',
-      classificacao: '18'
+      classificacao: ClassificacaoCards.DEZOITO
     },
     {
       tipo: TypeCardsEnum.PAPEL,
       nome: 'Stop',
-      classificacao: 'Livre'
+      classificacao: ClassificacaoCards.LIVRE
     }
   ];
 
