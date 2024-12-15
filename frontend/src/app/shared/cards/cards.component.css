@@ -1,0 +1,25 @@
+.card {
+    border: 3px solid antiquewhite;
+    border-radius: 30px;
+    transition: transform 0.2s ease;
+    background: none;
+}
+
+.card:hover {
+    transform: scale(1.01);
+}
+
+h5 {
+    font-family: "Archivo Black";
+    color: #e9e9e9;
+}
+
+.classificacao{
+    border-radius: 30px;
+}
+
+.favorite {
+    color:#e9e9e9;
+    cursor: pointer;
+    font-size: 26px;
+}
