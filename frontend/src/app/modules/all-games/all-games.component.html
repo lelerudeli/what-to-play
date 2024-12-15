@@ -12,7 +12,7 @@
 
   <!-- Games List -->
    <div height="80%;">
-     <div *ngFor="let game of games">
+     <div *ngFor="let game of games$ | async">
        <app-cards
        [name]="game.nome"
        [type]="game.tipo"

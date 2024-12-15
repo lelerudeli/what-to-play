@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, first } from 'rxjs';
 import { Router } from '@angular/router';
+import { PythonService } from '../../../shared/services/python.service';
 
 @Component({
   selector: 'app-register',
@@ -12,17 +13,28 @@ export class RegisterComponent {
   isLoginPageSelected: boolean = false;
 
   form: FormGroup = new FormGroup({
-    nome: new FormControl(null, Validators.required),
-    email: new FormControl(null, Validators.required),
+    nomeUsuario: new FormControl(null, Validators.required),
+    emailUsuario: new FormControl(null, Validators.required),
+    dataNascimento: new FormControl(null, Validators.required),
     senha: new FormControl(null, Validators.required),
   });
 
   isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  condicao: boolean = true
-
   constructor(
-    private router: Router,
-  ) {}
+    private pythonService: PythonService
+  ) { }
+
+  register(): void {
+    this.isLoadingSubject.next(true);
+    this.pythonService.cadastro(this.form.value).pipe(
+      first()
+    ).subscribe({
+      next: () => {
+        this.isLoadingSubject.next(false);
+      }
+    }
+    );
+  }
 
 }

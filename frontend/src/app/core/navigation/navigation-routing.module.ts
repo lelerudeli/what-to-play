@@ -7,10 +7,6 @@ const routes: Routes = [
   {
     path: '',
     component: NavigationComponent
-  },
-  {
-    path: 'home-page',
-    component: HomePageComponent
   }
 ];
 
