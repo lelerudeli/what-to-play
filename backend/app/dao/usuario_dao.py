@@ -43,11 +43,9 @@ def autenticar_usuario(app, login_infos):
     con = conexao_abrir(config)
     
     query = """
-    SELECT idUsuario, senhaUsuario
-    FROM Usuario
-    WHERE emailUsuario = %s
+    SELECT idUsuario, senhaUsuario, tipoUsuario FROM Usuario WHERE emailUsuario = %s
     """
-    valores = (login_infos['email'],)  # Certifique-se de que é uma tupla
+    valores = (login_infos['emailUsuario'],)  # Certifique-se de que é uma tupla
     
     try:
         with con.cursor() as cursor:
@@ -55,17 +53,17 @@ def autenticar_usuario(app, login_infos):
             resultado = cursor.fetchone()  # Busca uma linha correspondente
     except Exception as e:
         print(f"Erro na autenticação: {e}")
-        return None
+        return None, None
     finally:
         conexao_fechar(con)
     
     if resultado:
-        id_usuario, senha_armazenada = resultado
+        id_usuario, senha_armazenada, tipo_usuario = resultado
         # Verifica se a senha fornecida corresponde ao hash armazenado
-        if checkpw(login_infos['senha'].encode('utf-8'), senha_armazenada.encode('utf-8')):
-            return id_usuario
+        if checkpw(login_infos['senhaUsuario'].encode('utf-8'), senha_armazenada.encode('utf-8')):
+            return id_usuario, tipo_usuario
         
-    return None
+    return None, None
 
 def verificar_email(app, email):
     """Verifica se o e-mail existe no banco de dados."""

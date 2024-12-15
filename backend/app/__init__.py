@@ -17,15 +17,17 @@ def iniciar_app():
         novo_id = criar_usuario(app, usuario_infos)
         return jsonify({'id': novo_id}), 201
     
+    #Talvez o json enviado pelo angular precise de nomeUsuario, nomeCompleto, emailUsuario, tipoUsuario para bater com sistema
+    
     # Página de login
     @app.route('/login', methods=['POST'])
     def login():
         """Endpoint para autenticação de usuário."""
         login_infos = request.json
-        id_usuario = autenticar_usuario(app, login_infos)
+        id_usuario, tipo_usuario = autenticar_usuario(app, login_infos)
 
         if id_usuario:
-            return jsonify({"mensagem": "Login realizado com sucesso!", "id": id_usuario}), 200
+            return jsonify({"mensagem": "Login realizado com sucesso!", "id": id_usuario, "tipo": tipo_usuario}), 200
         else:
             return jsonify({"erro": "Credenciais inválidas!"}), 401
         
@@ -56,7 +58,8 @@ def iniciar_app():
         
         if jogos:
             return jsonify(jogos)
-        return jsonify({'error': 'Nenhum jogo encontrado'}), 404
+        return jsonify([]), 200
+
 
     @app.route('/jogos/<string:tipo>', methods=['GET'])
     def obter_jogos_por_tipo(tipo):
