@@ -14,8 +14,8 @@
    <div height="80%;">
      <div *ngFor="let game of games$ | async">
        <app-cards
-       [name]="game.nome"
-       [type]="game.tipo"
+       [name]="game.nomeJogo"
+       [type]="game.tipoJogo"
        [classificacao]="game.classificacao"></app-cards>
      </div>
    </div>

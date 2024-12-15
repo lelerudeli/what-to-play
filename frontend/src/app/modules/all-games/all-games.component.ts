@@ -11,19 +11,6 @@ import { Jogo } from '../../shared/models/jogo.model';
 })
 export class AllGamesComponent {
 
-  games: MinimumCards[] = [
-    {
-      tipo: TypeCardsEnum.BARALHO,
-      nome: 'Truco',
-      classificacao: ClassificacaoCards.DEZOITO
-    },
-    {
-      tipo: TypeCardsEnum.PAPEL,
-      nome: 'Stop',
-      classificacao: ClassificacaoCards.LIVRE
-    }
-  ];
-
   games$: Observable<Jogo[]> = of([]);
 
   constructor(

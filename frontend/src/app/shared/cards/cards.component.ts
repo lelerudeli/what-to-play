@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MinimumCards, TypeCardsEnum } from '../models/cards.model';
+import { TypeCardsEnum } from '../models/cards.model';
 
 @Component({
   selector: 'app-cards',
@@ -23,14 +23,12 @@ export class CardsComponent {
 
   getCardImage(type: string) {
     switch (type) {
-      case 'BARALHO':
+      case '1':
         return 'assets/baralho-removebg-preview.png';
-      case 'CONVERSA':
+      case '2':
         return 'assets/conversa-removebg-preview.png';
-      case 'PAPEL':
-        return 'assets/papel-removebg-preview.png';
       default:
-        return 'assets/default.png';
+        return 'assets/papel-removebg-preview.png';
     }
   }
   getCardClassificacaoImage(classificacao: string) {

@@ -1,6 +1,6 @@
 export interface Jogo {
-    nome: string,
-    descricao: string,
-    tipo: string, 
+    nomeJogo: string,
+    regraJogo: string,
+    tipoJogo: string, 
     classificacao: string
 }

@@ -5,9 +5,9 @@ export interface MinimumCards {
 }
 
 export enum TypeCardsEnum {
-    BARALHO = "BARALHO",
-    CONVERSA = "CONVERSA",
-    PAPEL = "PAPEL"
+    BARALHO = "1",
+    CONVERSA = "2",
+    PAPEL = "3"
 }
 
 export enum ClassificacaoCards {
