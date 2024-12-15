@@ -1,33 +1,21 @@
 from app.conexao_banco import conexao_abrir, conexao_fechar
 from bcrypt import checkpw
 
-def listar_usuarios(app):
-    """ Lista todos os usuários do banco de dados. """
-    # Obtenha as configurações diretamente da app.config
-    config = app.config
-    con = conexao_abrir(config)
-    
-    with con.cursor(dictionary=True) as cursor:
-        cursor.execute("SELECT * FROM Usuario")
-        usuarios = cursor.fetchall()
-    
-    conexao_fechar(con)  # Fecha a conexão
-    return usuarios
-
 def criar_usuario(app, usuario_infos):
     """Insere um novo usuário no banco de dados."""
     config = app.config
     con = conexao_abrir(config)
     
     query = """
-    INSERT INTO Usuario (nomeUsuario, nomeCompleto, emailUsuario, tipoUsuario)
-    VALUES (%s, %s, %s, %s)
+    INSERT INTO Usuario (nomeUsuario, nomeCompleto, emailUsuario, tipoUsuario, senhaUsuario)
+    VALUES (%s, %s, %s, %s, %s)
     """
     valores = (
         usuario_infos['nomeUsuario'],
         usuario_infos['nomeCompleto'],
         usuario_infos['emailUsuario'],
-        usuario_infos['tipoUsuario']
+        usuario_infos['tipoUsuario'],
+        usuario_infos['senhaUsuario']
     )
     
     with con.cursor() as cursor:
@@ -59,11 +47,25 @@ def autenticar_usuario(app, login_infos):
     
     if resultado:
         id_usuario, senha_armazenada, tipo_usuario = resultado
-        # Verifica se a senha fornecida corresponde ao hash armazenado
-        if checkpw(login_infos['senhaUsuario'].encode('utf-8'), senha_armazenada.encode('utf-8')):
+        # Verifica se a senha fornecida corresponde ao valor armazenado
+        if login_infos['senhaUsuario'] == senha_armazenada:  # Comparação direta
             return id_usuario, tipo_usuario
         
     return None, None
+
+def listar_usuarios(app):
+    """ Lista todos os usuários do banco de dados. """
+    # Obtenha as configurações diretamente da app.config
+    config = app.config
+    con = conexao_abrir(config)
+    
+    with con.cursor(dictionary=True) as cursor:
+        cursor.execute("SELECT * FROM Usuario")
+        usuarios = cursor.fetchall()
+    
+    conexao_fechar(con)  # Fecha a conexão
+    return usuarios
+
 
 def verificar_email(app, email):
     """Verifica se o e-mail existe no banco de dados."""
