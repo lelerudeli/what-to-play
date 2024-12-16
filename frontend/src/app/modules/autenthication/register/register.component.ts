@@ -14,9 +14,10 @@ export class RegisterComponent {
 
   form: FormGroup = new FormGroup({
     nomeUsuario: new FormControl(null, Validators.required),
-    emailUsuario: new FormControl(null, Validators.required),
+    nomeCompleto: new FormControl(null, Validators.required),
+    emailUsuario: new FormControl(null, [Validators.required, Validators.email]),
     dataNascimento: new FormControl(null, Validators.required),
-    senha: new FormControl(null, Validators.required),
+    senhaUsuario: new FormControl(null, Validators.required),
   });
 
   isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);

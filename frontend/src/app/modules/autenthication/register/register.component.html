@@ -1,57 +1,47 @@
-<div class="register-container d-flex flex-column vh-100 text-center">
-  <!-- Logo e Mensagem -->
-  <div class="login-header text-center">
-    <img class="logo" src="/assets/image-removebg-preview.png" alt="Logo What to Play?" class="logo mb-3" width="60" />
-
-    <!-- fw: font-weight- (normal, bold, thin) || estilização fonte -->
-    <h1 class="fw-bold">Cadastro de Usuário</h1> 
-    <p>
-      <!-- text- accent || depende do css -->
-      Crie sua conta no
-      "<strong class="text-accent">What to Play?</strong>"
-    </p>
+<div class="register-container d-flex flex-column justify-content-center gap-2 vh-100">
+  <div class="register-header text-center d-flex flex-start p-3">
+    <img src="/assets/image-removebg-preview.png" alt="Logo What to Play?" class="mb-4" width="70" />
+    <div class="text-start">
+      <h1 class="text-primary fw-bold">Cadastro</h1>
+      <p>
+        Cadastre-se no
+        <strong>"What to Play?"</strong>
+      </p>
+    </div>
   </div>
 
-  <!-- forms de cadastro -->
-  <div class="register-form d-flex flex-column align-items-center justify-content-center px-  4">
-    <form class="d-flex flex-column s-p-6" [formGroup]="form">
+  <div class="register-form d-flex flex-column align-items-center justify-content-center px-4">
+    <form class="w-100" [formGroup]="form">
 
-      <!-- Campo de E-mail -->
-      <!-- mb: margin bottom -->
-      <div class="form-floating mb-2">
-        <input type="email" class="form-control" id="floatingInput" placeholder="" formControlName="emailUsuario" />
-        <label for="floatingInput">Email</label>
+      <div class="form-group mb-3">
+        <input type="text" class="form-control" placeholder="Nome Completo" formControlName="nomeCompleto"/>
       </div>
 
-      <!-- Campo de Senha -->
-      <div class="form-floating mb-2">
-        <input type="password" class="form-control" id="floatingInput" placeholder="Digite sua senha"/>
-        <label for="floatingInput">Senha</label>
+      <div class="form-group mb-3">
+        <input type="text" class="form-control" placeholder="Nome de Usuário" formControlName="nomeUsuario"/>
       </div>
 
-      <!-- Campo de Confirmar Senha -->
-      <div class="form-floating mb-2">
-        <input type="password" class="form-control" id="floatingInput" placeholder="Confirme sua senha" formControlName="senha" />
-        <label for="floatingInput">Confirmar senha</label>
-      </div> 
+      <div class="form-group mb-3">
+        <input type="email" class="form-control" placeholder="E-mail" formControlName="emailUsuario"/>
+      </div>
 
+      <div class="form-group mb-3">
+        <input type="password" class="form-control" placeholder="Senha" formControlName="senhaUsuario"/>
+      </div>
 
-      <!-- Campo de Data de Nascimento -->
       <div class="form-floating mb-4">
-        <input type="date" class="form-control" id="floatingInput" placeholder="" formControlName="dataNascimento" />
-        <label for="floatingInput">Data de Nascimento</label>
+        <input type="date" class="form-control" formControlName="dataNascimento"/>
+        <label class="label">Data de Nascimento</label>
       </div>
 
       <!-- Botões de Ação -->
-      <button type="submit" class="btn btn-primary w-100 mb-2 text-uppercase" color="primary" (click)="register()">
+      <button class="btn btn-primary w-100 mb-2 text-uppercase" [disabled]="form.invalid" (click)="register()">
         Cadastrar
       </button>
 
-      <button type="button" class="btn btn-secondary w-100 mb-2  text-uppercase" routerLink="/authentication/login">
+      <button class="btn btn-login w-100 mb-2  text-uppercase" routerLink="/authentication/login">
         Voltar ao Login
       </button>
     </form>
 
   </div>
-
-</div>
