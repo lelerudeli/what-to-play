@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, url_for, redirect, session
+from flask import Flask, render_template, request, jsonify, url_for, redirect, session, make_response
 from functools import wraps
 from whattoplay.application.func.banco import *
 from whattoplay.application.func.funcoes import *
@@ -10,9 +10,8 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route('/')
-def index ():
+def index():
     return redirect(url_for('api'))
-
 
 @app.route('/api')
 def api():
@@ -20,108 +19,244 @@ def api():
 
 @app.route('/api/usuarios', methods=['GET'])
 def get_usuarios():
-    return jsonify(obter_usuarios(con))
+    usuarios = obter_usuarios(con)
+    response = make_response(jsonify(usuarios))
+    response.headers['Content-Type'] = 'application/json'
+    return response
 
 @app.route('/api/jogos', methods=['GET'])
 def get_jogos():
-    return jsonify(obter_jogos(con))
+    jogos = obter_jogos(con)
+    response = make_response(jsonify(jogos))
+    response.headers['Content-Type'] = 'application/json'
+    return response
 
 @app.route('/api/avaliacoes', methods=['GET'])
 def get_avaliacoes():
-    return jsonify(obter_avaliacoes(con))
+    avaliacoes = obter_avaliacoes(con)
+    response = make_response(jsonify(avaliacoes))
+    response.headers['Content-Type'] = 'application/json'
+    return response
 
 @app.route('/api/favoritos', methods=['GET'])
 def get_favoritos():
-    return jsonify(obter_favoritos(con))
+    favoritos = obter_favoritos(con)
+    response = make_response(jsonify(favoritos))
+    response.headers['Content-Type'] = 'application/json'
+    return response
 
 @app.route('/api/classificacoes_etarias', methods=['GET'])
 def get_classificacoes_etarias():
-    return jsonify(obter_classificacoes_etarias(con))
+    classificacoes = obter_classificacoes_etarias(con)
+    response = make_response(jsonify(classificacoes))
+    response.headers['Content-Type'] = 'application/json'
+    return response
 
-# Página de cadastro
+
 @app.route('/cadastro', methods=['POST'])
 def cadastro():
     """Página inicial: cadastro de usuário"""
-    usuario_infos = request.json
-    novo_id = criar_usuario(con, usuario_infos)
-    return jsonify({'id': novo_id}), 201
+    try:
+        usuario_infos = request.get_json()
+        novo_id = criar_usuario(con, usuario_infos)
+
+        response = make_response(jsonify({'id': novo_id}))
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 201  # Created
+        return response
+
+    except Exception as e:
+        # Tratar exceções e retornar um erro 500
+        response = make_response(jsonify({'error': 'Erro ao criar usuário'}))
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 500  # Internal Server Error
+        return response
 
 # Página de login
 @app.route('/login', methods=['POST'])
 def login():
     """Endpoint para autenticação de usuário."""
-    login_infos = request.json
-    id_usuario = autenticar_usuario(con, login_infos)
+    try:
+        login_infos = request.get_json()
+        id_usuario = autenticar_usuario(con, login_infos)
 
-    if id_usuario:
-        return jsonify({"mensagem": "Login realizado com sucesso!", "id": id_usuario}), 200
-    else:
-        return jsonify({"erro": "Credenciais inválidas!"}), 401
+        if id_usuario:
+            response = make_response(jsonify({"mensagem": "Login realizado com sucesso!", "id": id_usuario}))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 200  # OK
+            return response
+        else:
+            response = make_response(jsonify({"erro": "Credenciais inválidas!"}))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 401  # Unauthorized
+            return response
+
+    except Exception as e:
+        # Tratar exceções e retornar um erro 500
+        response = make_response(jsonify({'error': 'Erro ao processar login'}))
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 500  # Internal Server Error
+        return response
     
 @app.route('/esqueci-senha', methods=['POST'])
 def esqueci_senha():
     """Verifica se o e-mail existe no sistema para redefinição de senha."""
-    email = request.json
-    
-    if not email:
-        return jsonify({"erro": "E-mail não fornecido."}), 400
-    
-    # Verificar se o e-mail existe no banco de dados
-    usuario = verificar_email(con, email)
+    try:
+        email = request.get_json()
 
-    if usuario:
-        return jsonify({
-            "mensagem": "E-mail encontrado.",
-            "email": usuario['emailUsuario'],  # Retorna o e-mail para o próximo passo
-            "id": usuario['idUsuario']        # Retorna o ID para identificar o usuário
-        }), 200
-    else:
-        return jsonify({"erro": "E-mail não encontrado."}), 404
+        if not email:
+            response = make_response(jsonify({"erro": "E-mail não fornecido."}))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 400  # Bad Request
+            return response
+
+        # Verificar se o e-mail existe no banco de dados
+        usuario = verificar_email(con, email)
+
+        if usuario:
+            response = make_response(jsonify({
+                "mensagem": "E-mail encontrado.",
+                "email": usuario['emailUsuario'],
+                "id": usuario['idUsuario']
+            }))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 200  # OK
+            return response
+        else:
+            response = make_response(jsonify({"erro": "E-mail não encontrado."}))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 404  # Not Found
+            return response
+
+    except Exception as e:
+        # Tratar exceções e retornar um erro 500
+        response = make_response(jsonify({'error': 'Erro ao processar a solicitação'}))
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 500  # Internal Server Error
+        return response
     
 @app.route('/jogos', methods=['GET'])
 def obter_todos_jogos():
     """Obter todos os jogos."""
-    jogos = obter_jogos(con)
-    
-    if jogos:
-        return jsonify(jogos)
-    return jsonify({'error': 'Nenhum jogo encontrado'}), 404
+    try:
+        jogos = obter_jogos(con)
+
+        if jogos:
+            response = make_response(jsonify(jogos))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 200  # OK
+            return response
+        else:
+            response = make_response(jsonify({'error': 'Nenhum jogo encontrado'}))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 404  # Not Found
+            return response
+
+    except Exception as e:
+        # Tratar exceções e retornar um erro 500
+        response = make_response(jsonify({'error': 'Erro ao obter jogos'}))
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 500  # Internal Server Error
+        return response
 
 @app.route('/jogos/<string:tipo>', methods=['GET'])
 def obter_jogos_por_tipo(tipo):
     """Obter jogos de um tipo específico."""
-    jogos = obter_jogo_por_tipo(con, tipo)
+    try:
+        jogos = obter_jogo_por_tipo(con, tipo)
+
+        if jogos:
+            response = make_response(jsonify(jogos))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 200  # OK
+            return response
+        else:
+            response = make_response(jsonify({'error': 'Nenhum jogo encontrado para o tipo especificado'}))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 404  # Not Found
+            return response
+
+    except Exception as e:
+        # Tratar exceções e retornar um erro 500
+        response = make_response(jsonify({'error': 'Erro ao obter jogos'}))
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 500  # Internal Server Error
+        return response
     
-    if jogos:
-        return jsonify(jogos)
-    return jsonify({'error': 'Nenhum jogo encontrado para o tipo especificado'}), 404
 
 @app.route('/jogos/<int:id>', methods=['GET'])
 def obter_jogo(id):
     """Obter informações de um jogo específico pelo ID."""
-    jogo = obter_jogo_por_id(con, id)
-    
-    if jogo:
-        return jsonify(jogo)
-    return jsonify({'error': 'Jogo não encontrado'}), 404
+    try:
+        jogo = obter_jogo_por_id(con, id)
 
+        if jogo:
+            response = make_response(jsonify(jogo))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 200  # OK
+            return response
+        else:
+            response = make_response(jsonify({'error': 'Jogo não encontrado'}))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 404  # Not Found
+            return response
+
+    except Exception as e:
+        # Tratar exceções e retornar um erro 500
+        response = make_response(jsonify({'error': 'Erro ao obter jogo'}))
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 500  # Internal Server Error
+        return response
+    
 @app.route('/jogos/<int:id>', methods=['PUT'])
 def atualizar_jogo_por_id(id):
     """Atualizar informações de um jogo específico pelo ID."""
-    jogo_infos = request.json
+    try:
+        jogo_infos = request.get_json()
 
-    linhas_atualizadas = atualizar_jogo(con, id, jogo_infos)
-    if linhas_atualizadas > 0:
-        return jsonify({'message': 'Jogo atualizado com sucesso'}), 200
-    return jsonify({'error': 'Jogo não encontrado ou sem alterações'}), 404
+        linhas_atualizadas = atualizar_jogo(con, id, jogo_infos)
+
+        if linhas_atualizadas > 0:
+            response = make_response(jsonify({'message': 'Jogo atualizado com sucesso'}))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 200  # OK
+            return response
+        else:
+            response = make_response(jsonify({'error': 'Jogo não encontrado ou sem alterações'}))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 404  # Not Found
+            return response
+
+    except Exception as e:
+        # Tratar exceções e retornar um erro 500
+        response = make_response(jsonify({'error': 'Erro ao atualizar jogo'}))
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 500  # Internal Server Error
+        return response
 
 @app.route('/jogos/<int:id>', methods=['DELETE'])
 def excluir_jogo_por_id(id):
     """Excluir um jogo específico pelo ID."""
-    linhas_afetadas = excluir_jogo(con, id)
-    if linhas_afetadas > 0:
-        return jsonify({'message': 'Jogo excluído com sucesso'}), 200
-    return jsonify({'error': 'Jogo não encontrado'}), 404
+    try:
+        linhas_afetadas = excluir_jogo(con, id)
+
+        if linhas_afetadas > 0:
+            response = make_response(jsonify({'message': 'Jogo excluído com sucesso'}))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 200  # OK
+            return response
+        else:
+            response = make_response(jsonify({'error': 'Jogo não encontrado'}))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 404  # Not Found
+            return response
+
+    except Exception as e:
+        # Tratar exceções e retornar um erro 500
+        response = make_response(jsonify({'error': 'Erro ao excluir jogo'}))
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 500  # Internal Server Error
+        return response
 
 
 
