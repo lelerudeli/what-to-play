@@ -1,6 +1,7 @@
 from app.conexao_banco import conexao_abrir, conexao_fechar
 from datetime import datetime
 import pytz
+import bcrypt
 
 # Define o fuso horário de Brasília
 brasilia_tz = pytz.timezone('America/Sao_Paulo')
@@ -16,6 +17,10 @@ def criar_usuario(app, usuario_infos):
     config = app.config
     con = conexao_abrir(config)
     
+    # Criptografa a senha
+    senha = usuario_infos['senhaUsuario'].encode('utf-8')
+    senha_criptografada = bcrypt.hashpw(senha, bcrypt.gensalt()) #Criptgrafa usando o bcrypt
+    
     query = """
     INSERT INTO Usuario (dataRegistro,nomeUsuario, nomeCompleto, emailUsuario, tipoUsuario, senhaUsuario)
     VALUES (%s, %s, %s, %s, %s, %s)
@@ -26,7 +31,7 @@ def criar_usuario(app, usuario_infos):
         usuario_infos['nomeCompleto'],
         usuario_infos['emailUsuario'],
         'regular',
-        usuario_infos['senhaUsuario']
+        senha_criptografada.decode('utf-8') #Salva como string
     )
     
     with con.cursor() as cursor:
@@ -58,8 +63,9 @@ def autenticar_usuario(app, login_infos):
     
     if resultado:
         id_usuario, senha_armazenada, tipo_usuario = resultado
-        # Verifica se a senha fornecida corresponde ao valor armazenado
-        if login_infos['senhaUsuario'] == senha_armazenada:  # Comparação direta
+
+        senha = login_infos['senhaUsuario'].encode('utf-8')
+        if bcrypt.checkpw(senha, senha_armazenada.encode('utf-8')):
             return id_usuario, tipo_usuario
         
     return None, None
