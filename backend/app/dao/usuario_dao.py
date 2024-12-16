@@ -1,4 +1,15 @@
 from app.conexao_banco import conexao_abrir, conexao_fechar
+from datetime import datetime
+import pytz
+
+# Define o fuso horário de Brasília
+brasilia_tz = pytz.timezone('America/Sao_Paulo')
+
+# Obtem a data e hora de brasília
+data_atual = datetime.now(brasilia_tz)
+
+# Formata a data
+data_formatada = data_atual.strftime("%Y-%m-%d %H:%M:%S")
 
 def criar_usuario(app, usuario_infos):
     """Insere um novo usuário no banco de dados."""
@@ -6,10 +17,11 @@ def criar_usuario(app, usuario_infos):
     con = conexao_abrir(config)
     
     query = """
-    INSERT INTO Usuario (nomeUsuario, nomeCompleto, emailUsuario, tipoUsuario, senhaUsuario)
+    INSERT INTO Usuario (dataRegistro,nomeUsuario, nomeCompleto, emailUsuario, tipoUsuario, senhaUsuario)
     VALUES (%s, %s, %s, %s, %s)
     """
     valores = (
+        data_formatada,
         usuario_infos['nomeUsuario'],
         usuario_infos['nomeCompleto'],
         usuario_infos['emailUsuario'],
@@ -82,6 +94,7 @@ def verificar_email(app, email):
         with con.cursor() as cursor:
             cursor.execute(query, valores)
             resultado = cursor.fetchone()  # Busca uma linha correspondente
+            cursor.fetchall()
     except Exception as e:
         print(f"Erro ao verificar e-mail: {e}")
         return None

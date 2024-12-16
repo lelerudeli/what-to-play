@@ -14,10 +14,13 @@ def iniciar_app():
     def cadastro():
         """Página inicial: cadastro de usuário"""
         usuario_infos = request.json
-        if not usuario_infos:
-            return jsonify({'erro': 'Dados do usuário não fornecidos.'}), 400
-
+        email = usuario_infos.get('emailUsuario')
+        
         try:
+            usuario_existe = verificar_email(app, email)
+            if usuario_existe:
+                return jsonify({'erro': 'E-mail já cadastrado.','idUsuario': usuario_existe['idUsuario'],}), 409
+                
             novo_id = criar_usuario(app, usuario_infos)
             return jsonify({'id': novo_id, 'mensagem': 'Usuário cadastrado com sucesso!'}), 201
         except Exception as e:
