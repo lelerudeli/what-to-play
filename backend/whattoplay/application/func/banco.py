@@ -2,7 +2,7 @@ from whattoplay.application.func.conexao_bd import conexao_abrir, conexao_fechar
 from bcrypt import checkpw
 
 # Abrir a conexão
-con = conexao_abrir("junction.proxy.rlwy.net", "root", "uXoouZATPTMRXWqFnlUJgRxHozhruwzx", "whattoplay", 59391)
+con = conexao_abrir("junction.proxy.rlwy.net", "root", "utknNNutQbWRwVpeoIiRFrpyCgQtBkEI", "whattoplay", 53813)
 
 def obter_usuarios(con):
     with con.cursor(dictionary=True) as cursor:
