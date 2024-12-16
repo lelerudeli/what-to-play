@@ -47,7 +47,7 @@ def autenticar_usuario(app, login_infos):
     con = conexao_abrir(config)
     
     query = """
-    SELECT idUsuario, senhaUsuario, tipoUsuario FROM Usuario WHERE emailUsuario = %s
+    SELECT nomeUsuario, idUsuario, senhaUsuario, tipoUsuario FROM Usuario WHERE emailUsuario = %s
     """
     valores = (login_infos['emailUsuario'],)  # Certifique-se de que é uma tupla
     
@@ -62,13 +62,13 @@ def autenticar_usuario(app, login_infos):
         conexao_fechar(con)
     
     if resultado:
-        id_usuario, senha_armazenada, tipo_usuario = resultado
+        nome_usuario, id_usuario, senha_armazenada, tipo_usuario = resultado
 
         senha = login_infos['senhaUsuario'].encode('utf-8')
         if bcrypt.checkpw(senha, senha_armazenada.encode('utf-8')):
-            return id_usuario, tipo_usuario
+            return nome_usuario, id_usuario, tipo_usuario
         
-    return None, None
+    return None, None, None
 
 def listar_usuarios(app):
     """ Lista todos os usuários do banco de dados. """
