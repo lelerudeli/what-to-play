@@ -16,17 +16,3 @@ def listar_favoritos(app):
 # Usuario_idUsuario
 # Jogo_idJogo
 # dataFavorito
-
-# def lista_favoritos(favoritos):
-#     """Exibe a lista de favoritos do banco de dados como string"""
-    
-#     html_favoritos = ""  
-#     for favorito in favoritos:
-#         html_favoritos += (
-#             f"ID Favorito: {favorito['idFavorito']} <br> "
-#             f"ID Usuário: {favorito['idUsuario']} <br> "
-#             f"ID Jogo: {favorito['idJogo']} <br> "
-#             f"Data de Adição: {favorito['dataAdicao']} <br><br>"
-#         )
-        
-#     return html_favoritos

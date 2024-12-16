@@ -2,6 +2,7 @@ class Config:
     # Configuração do banco de dados
     HOST = "junction.proxy.rlwy.net"
     USER = "root"
-    PASSWORD = "uXoouZATPTMRXWqFnlUJgRxHozhruwzx"
+    PASSWORD = "utknNNutQbWRwVpeoIiRFrpyCgQtBkEI"
     NAME = "whattoplay"
-    PORT = 59391
+    PORT = 53813
+    

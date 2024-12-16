@@ -1,5 +1,4 @@
 from app.conexao_banco import conexao_abrir, conexao_fechar
-from bcrypt import checkpw
 
 def criar_usuario(app, usuario_infos):
     """Insere um novo usuário no banco de dados."""
@@ -14,7 +13,7 @@ def criar_usuario(app, usuario_infos):
         usuario_infos['nomeUsuario'],
         usuario_infos['nomeCompleto'],
         usuario_infos['emailUsuario'],
-        usuario_infos['tipoUsuario'],
+        'regular',
         usuario_infos['senhaUsuario']
     )
     

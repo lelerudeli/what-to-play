@@ -124,22 +124,3 @@ def obter_jogo_por_usuario(app, id_usuario):
 # numeroJogadores
 # Usuario_idUsuario
 # ClassificacaoEtaria_idClassificacao
-    
-# def lista_jogos(jogos):
-#     """Exibe a lista de jogos do banco de dados como string"""
-    
-#     html_jogos = ""  
-#     for jogo in jogos:
-#         html_jogos += (
-#             f"ID Jogo: {jogo['idJogo']} <br> "
-#             f"Nome do Jogo: {jogo['nomeJogo']} <br> "
-#             f"Tipo de Jogo: {jogo['tipoJogo']} <br> "
-#             f"Faixa Etária: {jogo['faixaEtaria']} <br> "
-#             f"Número de Curtidas: {jogo['numCurtidas']} <br> "
-#             f"Número de Jogadores: {jogo['numJogadores']} <br> "
-#             f"Data de Lançamento: {jogo['dataLancamento']} <br> "
-#             f"Gênero: {jogo['generoJogo']} <br> "
-#             f"Plataforma: {jogo['plataformaJogo']} <br><br>"
-#         )
-        
-#     return html_jogos

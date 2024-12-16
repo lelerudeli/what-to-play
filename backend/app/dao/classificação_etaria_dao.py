@@ -20,16 +20,3 @@ def listar_classificacoes_etarias(app):
 # linguagemImpropria
 # violencia
 # classificacao
-
-# def lista_classificacoes_etarias(classificacoes_etarias):
-#     """Exibe a lista de classificações etárias do banco de dados como string"""
-    
-#     html_classificacoes_etarias = ""  
-#     for classificacao in classificacoes_etarias:
-#         html_classificacoes_etarias += (
-#             f"ID Classificação: {classificacao['idClassificacao']} <br> "
-#             f"Faixa Etária: {classificacao['faixaEtaria']} <br> "
-#             f"Descrição: {classificacao['descricao']} <br><br>"
-#         )
-        
-#     return html_classificacoes_etarias
