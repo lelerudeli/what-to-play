@@ -18,7 +18,7 @@ def criar_usuario(app, usuario_infos):
     
     query = """
     INSERT INTO Usuario (dataRegistro,nomeUsuario, nomeCompleto, emailUsuario, tipoUsuario, senhaUsuario)
-    VALUES (%s, %s, %s, %s, %s)
+    VALUES (%s, %s, %s, %s, %s, %s)
     """
     valores = (
         data_formatada,
