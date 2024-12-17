@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, first } from 'rxjs';
 import { Router } from '@angular/router';
 import { PythonService } from '../../../shared/services/python.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,9 @@ export class RegisterComponent {
   isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
-    private pythonService: PythonService
+    private pythonService: PythonService,
+    private router: Router,
+    private toast: ToastrService
   ) { }
 
   register(): void {
@@ -32,8 +35,13 @@ export class RegisterComponent {
       first()
     ).subscribe({
       next: () => {
+        this.toast.success('Usuário cadastrado com sucesso!');
+        this.router.navigate(['home/home-page']);
         this.isLoadingSubject.next(false);
-      }
+      },
+      error: () => {
+        this.toast.error('Email já cadastrado!');          
+      },
     }
     );
   }
