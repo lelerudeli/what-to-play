@@ -12,6 +12,7 @@ mysql-connector-python = "^9.1.0"
 flask-cors = "^5.0.0"
 pytz = "^2024.2"
 bcrypt = "^4.2.1"
+flask-jwt-extended = "^4.7.1"
 
 
 [build-system]

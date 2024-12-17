@@ -3,13 +3,14 @@ from app.dao.usuario_dao import *
 from app.dao.jogos_dao import *
 from config import Config
 from flask_cors import CORS
-from flask import session
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
 def iniciar_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     CORS(app)
-
+    jwt = JWTManager(app)
+    
     # Página de cadastro
     @app.route('/cadastro', methods=['POST'])
     def cadastro():
@@ -23,12 +24,11 @@ def iniciar_app():
                 return jsonify({'erro': 'E-mail já cadastrado.','idUsuario': usuario_existe['idUsuario'],}), 409
                 
             novo_id, tipo_usuario = criar_usuario(app, usuario_infos)
-            # Armazena os dados na sessão após o cadastro
-            session["nome_usuario"] = usuario_infos.get('nomeUsuario') 
-            session["id_usuario"] = novo_id
-            session["tipo_usuario"] = tipo_usuario
+            
+            # Cria o token JWT com as informações do usuário
+            access_token = create_access_token(identity={"id": novo_id,"tipo": tipo_usuario, "nome": usuario_infos.get('nomeUsuario') })
         
-            return jsonify({'id': novo_id, 'mensagem': 'Usuário cadastrado com sucesso!'}), 201
+            return jsonify({'id': novo_id, 'mensagem': 'Usuário cadastrado com sucesso!', 'token': access_token}), 201
         except Exception as e:
             return jsonify({'erro': 'Erro ao cadastrar o usuário.', 'detalhes': str(e)}), 500
 
@@ -44,17 +44,11 @@ def iniciar_app():
         nome_usuario, id_usuario, tipo_usuario = autenticar_usuario(app, login_infos)
         
         if id_usuario:
-            # Armazena os dados na sessão
-            session["nome_usuario"] = nome_usuario
-            session["id_usuario"] = id_usuario
-            session["tipo_usuario"] = tipo_usuario
-            
+            # Cria o token JWT com informações do usuário
+            access_token = create_access_token(identity={"id": id_usuario,"tipo": tipo_usuario, "nome": nome_usuario })
             return jsonify({
                 "mensagem": "Login realizado com sucesso!",
-                "nome": nome_usuario,
-                "id": id_usuario,
-                "tipo": tipo_usuario
-                
+                "token": access_token
             }), 200
         else:
             return jsonify({"erro": "E-mail ou senha inválidos."}), 401
@@ -63,7 +57,7 @@ def iniciar_app():
     @app.route('/logout', methods=['DELETE'])
     def logout():
         """Faz logout do usuário e limpa a sessão."""
-        session.clear()
+        #No backend, o jwt não precisa fazer nada
         return jsonify({"mensagem": "Logout realizado com sucesso!"}), 200
         
     @app.route('/jogos', methods=['GET'])
@@ -76,17 +70,17 @@ def iniciar_app():
         return jsonify({"mensagem": "Nenhum jogo encontrado."}), 200
 
     @app.route('/perfil', methods = ['GET'])
+    @jwt_required()
     def obter_dados_usuario():
         """Obter dados do usuário para o perfil"""
-        if 'id_usuario' in session:
-            id_usuario = session.get('id_usuario')
-            usuario = obter_usuario_por_id(app, id_usuario)
+        current_user = get_jwt_identity()  # Obtém informações do token
+        id_usuario = current_user["id"]
+        usuario = obter_usuario_por_id(app, id_usuario)
 
-            if usuario:
-                return jsonify(usuario), 200  
-            else:
-                return jsonify({"erro": "Usuário não encontrado."}), 404
+
+        if usuario:
+            return jsonify(usuario), 200  
         else:
-            return jsonify({"erro": "Usuário não logado."}), 401
+            return jsonify({"erro": "Usuário não encontrado."}), 404
         
     return app
