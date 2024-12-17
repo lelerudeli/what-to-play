@@ -57,7 +57,7 @@ def autenticar_usuario(app, login_infos):
             resultado = cursor.fetchone()  # Busca uma linha correspondente
     except Exception as e:
         print(f"Erro na autenticação: {e}")
-        return None, None
+        return None, None, None
     finally:
         conexao_fechar(con)
     

@@ -3,7 +3,6 @@ from app.dao.usuario_dao import *
 from app.dao.jogos_dao import *
 from config import Config
 from flask_cors import CORS
-from flask_session import Session 
 from flask import session
 
 def iniciar_app():
