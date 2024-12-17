@@ -4,6 +4,14 @@ import { isAuthenticatedGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
   {
+    path: 'profile',
+  
+    loadChildren: () =>
+      import('./modules/profile/profile.module').then(
+        (m) => m.ProfileModule
+      )
+  },
+  {
     path: 'authentication',
     loadChildren: () =>
       import('./modules/autenthication/autenthications.module').then(

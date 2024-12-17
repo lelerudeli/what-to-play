@@ -1,1 +1,55 @@
-<p>profile works!</p>
+<div class="profile min-vh-75 d-flex flex-column justify-content-center align-items-center p-2">
+    <!-- Cabeçalho -->
+    <div class="w-100">
+        <app-header></app-header>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="profile-container container p-4">
+        <!-- Cabeçalho do Perfil -->
+        <div class="profile-header text-center flex-column flex-md-row align-items-center justify-content-between p-3 ">
+            <!-- Imagem de Perfil -->
+            <div class="mb-3 mb-md-0 me-md-3">
+                <img src="../../../assets/profile-icon.jpeg" alt="profile-icon" class="img-fluid rounded-circle" style="width: 100px;">
+            </div>
+
+            <div class="text-center ">
+                <h1 class="profile-username fw-bold">
+                    <!-- Lista de usuários do profile.component.ts -->
+                    <div *ngFor="let user of users">
+                        {{ user.username }}
+                    </div>
+                </h1>
+
+                <div class="profile-description mt-3">
+                    <h2 class="h4">
+                        Meu nome é
+                        <span *ngFor="let user of users" class="text-primary">
+                            {{ user.nome }}
+                        </span>
+                    </h2>
+                </div>
+
+                <!-- Novos Campos: Amigos e Jogos -->
+                <div class="mt-3 d-flex justify-content-around">
+                    <!-- Campo Amigos -->
+                    <div class="text-center">
+                        <h5>Amigos</h5>
+                        <p class="fs-4">7</p>
+                    </div>
+                    <!-- Campo Jogos -->
+                    <div class="text-center">
+                        <h5>Jogos</h5>
+                        <p class="fs-4">3</p>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        
+    </div>
+
+    <!-- Navegação -->
+    <div class="mt-4 w-100">
+        <app-navigation></app-navigation>
+    </div>
+</div>
