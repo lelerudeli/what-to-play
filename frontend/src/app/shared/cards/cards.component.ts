@@ -23,9 +23,9 @@ export class CardsComponent {
 
   getCardImage(type: string) {
     switch (type) {
-      case '1':
+      case 'baralho':
         return 'assets/baralho-removebg-preview.png';
-      case '2':
+      case 'conversacao':
         return 'assets/conversa-removebg-preview.png';
       default:
         return 'assets/papel-removebg-preview.png';
@@ -33,15 +33,15 @@ export class CardsComponent {
   }
   getCardClassificacaoImage(classificacao: string) {
     switch (classificacao) {
-      case 'DEZOITO':
+      case '18':
         return 'assets/18.PNG';
-      case 'DEZESSEIS':
+      case '16':
         return 'assets/16.PNG';
-      case 'CATORZE':
+      case '14':
         return 'assets/14.PNG';
-      case 'DOZE':
+      case '12':
         return 'assets/12.PNG';
-      case 'DEZ':
+      case '10':
         return 'assets/10.PNG';
       default:
         return 'assets/livre.PNG';

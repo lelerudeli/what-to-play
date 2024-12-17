@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { PythonService } from '../../../shared/services/python.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoginResponse } from '../../../shared/models/login.models';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent{
 
   constructor(
     private router: Router,
-    private service: PythonService
+    private service: PythonService,
+    private toast: ToastrService
   ) {}
 
   authenticate(): void {
@@ -34,10 +36,11 @@ export class LoginComponent{
         next: (login: LoginResponse) => {
           this.service.storeUserData(login);
           this.isLoadingSubject.next(false);
+          this.toast.success('Bem vindo ao "What To Play?"');
           this.router.navigate(['home/home-page']);
         },
         error: (error: HttpErrorResponse) => {
-          console.log('ocorreu um erro', error);
+          this.toast.error('Usuário ou senha inválidos');
           this.isLoadingSubject.next(false);
         },
       });
