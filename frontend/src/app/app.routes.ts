@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { isAuthenticatedGuard } from './shared/guards/auth.guard';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { GameRegisterComponent } from './modules/game-register/game-register.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,13 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./modules/profile/profile.module').then(
         (m) => m.ProfileModule
+      )
+  },
+  {
+    path: 'game-register',
+    loadChildren: () =>
+      import('./modules/game-register/game-register.module').then(
+        (m) => m.GameRegisterModule
       )
   },
   {

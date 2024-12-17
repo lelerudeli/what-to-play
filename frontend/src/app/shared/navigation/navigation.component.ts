@@ -19,4 +19,8 @@ export class NavigationComponent {
     this.router.navigate(['profile']);
   }
 
+  goGameRegister(): void {
+    this.router.navigate(['game-register'])
+  }
+
 }

@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './header/header.component';
 import { CardsComponent } from './cards/cards.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,12 +14,13 @@ import { NavigationComponent } from './navigation/navigation.component';
   ],
   imports: [
     CommonModule,
-    MatIconModule
+    MatIconModule,
   ],
   exports: [
     HeaderComponent,
     NavigationComponent,
-    CardsComponent
+    CardsComponent,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: []
