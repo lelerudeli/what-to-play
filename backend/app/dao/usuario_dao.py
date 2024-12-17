@@ -20,6 +20,7 @@ def criar_usuario(app, usuario_infos):
     # Criptografa a senha
     senha = usuario_infos['senhaUsuario'].encode('utf-8')
     senha_criptografada = bcrypt.hashpw(senha, bcrypt.gensalt()) #Criptgrafa usando o bcrypt
+    tipo_usuario = 'regular' #Pegar do sistema depois
     
     query = """
     INSERT INTO Usuario (dataRegistro,nomeUsuario, nomeCompleto, emailUsuario, tipoUsuario, senhaUsuario)
@@ -30,7 +31,7 @@ def criar_usuario(app, usuario_infos):
         usuario_infos['nomeUsuario'],
         usuario_infos['nomeCompleto'],
         usuario_infos['emailUsuario'],
-        'regular',
+        tipo_usuario,
         senha_criptografada.decode('utf-8') #Salva como string
     )
     
@@ -39,7 +40,7 @@ def criar_usuario(app, usuario_infos):
         con.commit()
     
     conexao_fechar(con)
-    return cursor.lastrowid  # Retorna o ID do usuário
+    return cursor.lastrowid, tipo_usuario  # Retorna o ID do usuário
 
 def autenticar_usuario(app, login_infos):
     """Autentica um usuário com base no e-mail e na senha."""
@@ -100,7 +101,6 @@ def verificar_email(app, email):
         with con.cursor() as cursor:
             cursor.execute(query, valores)
             resultado = cursor.fetchone()  # Busca uma linha correspondente
-            cursor.fetchall()
     except Exception as e:
         print(f"Erro ao verificar e-mail: {e}")
         return None

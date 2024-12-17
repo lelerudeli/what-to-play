@@ -22,7 +22,12 @@ def iniciar_app():
             if usuario_existe:
                 return jsonify({'erro': 'E-mail já cadastrado.','idUsuario': usuario_existe['idUsuario'],}), 409
                 
-            novo_id = criar_usuario(app, usuario_infos)
+            novo_id, tipo_usuario = criar_usuario(app, usuario_infos)
+            # Armazena os dados na sessão após o cadastro
+            session["nome_usuario"] = usuario_infos.get('nomeUsuario') 
+            session["id_usuario"] = novo_id
+            session["tipo_usuario"] = tipo_usuario
+        
             return jsonify({'id': novo_id, 'mensagem': 'Usuário cadastrado com sucesso!'}), 201
         except Exception as e:
             return jsonify({'erro': 'Erro ao cadastrar o usuário.', 'detalhes': str(e)}), 500
@@ -70,4 +75,18 @@ def iniciar_app():
             return jsonify(jogos)
         return jsonify({"mensagem": "Nenhum jogo encontrado."}), 200
 
+    @app.route('/perfil', methods = ['GET'])
+    def obter_dados_usuario():
+        """Obter dados do usuário para o perfil"""
+        if 'id_usuario' in session:
+            id_usuario = session.get('id_usuario')
+            usuario = obter_usuario_por_id(app, id_usuario)
+
+            if usuario:
+                return jsonify(usuario), 200  
+            else:
+                return jsonify({"erro": "Usuário não encontrado."}), 404
+        else:
+            return jsonify({"erro": "Usuário não logado."}), 401
+        
     return app
