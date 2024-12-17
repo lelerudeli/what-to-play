@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { isAuthenticatedGuard } from './shared/guards/auth.guard';
+import { ProfileComponent } from './modules/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -24,6 +25,10 @@ export const routes: Routes = [
       import('./modules/all-games/all-games.module').then(
         (m) => m.AllGamesModule
       )
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
   },
   {
     path: '**',

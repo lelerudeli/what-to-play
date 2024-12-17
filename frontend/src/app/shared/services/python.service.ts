@@ -36,4 +36,8 @@ export class PythonService {
   insertJogo(body: Jogo): Observable<any> {
     return this.http.post<any>(`${this.API}/insert/jogos`, body);
   }
+
+  perfil(): Observable<any> {
+    return this.http.get<any>(`${this.API}/perfil`)
+  }
 }

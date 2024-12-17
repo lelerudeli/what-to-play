@@ -15,6 +15,7 @@ import { SharedModule } from '../shared/shared.module';
     PapelComponent,
   ],
   imports: [
+    SharedModule,
     CoreRoutingModule,
     CommonModule
   ],

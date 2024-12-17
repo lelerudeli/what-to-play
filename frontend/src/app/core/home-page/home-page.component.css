@@ -46,3 +46,9 @@ h1 {
 .all-games-btn:hover {
     background-color: #ad0000;
 }
+
+.navigation {
+    width: 90%;
+    position: fixed;
+    bottom: 0;
+}

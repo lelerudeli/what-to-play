@@ -1,4 +1,4 @@
-<div *ngIf="this.activatedrouterRef.children.length === 0" class="home-page d-flex flex-column gap-5 justify-content-center align-items-center vh-100">
+<div *ngIf="this.activatedrouterRef.children.length === 0" class="home-page p-3 d-flex flex-column gap-4 justify-content-center align-items-center vh-100">
     <header class="header d-flex flex-row ">
       <img src="/assets/image-removebg-preview.png" alt="Logo" class="logo" width="50">
       <h1>What to play?</h1>
@@ -17,9 +17,11 @@
         <img src="/assets/papel-removebg-preview.png" alt="Papel e Caneta" width="130" role="button" routerLink="papel">
         <p>Papel e Caneta</p>
       </div>
+      <button class="btn all-games-btn text-uppercase" role="button" [routerLink]="['/all-games']">Todos os Jogos</button>
     </div>
   
-    <button class="btn all-games-btn text-uppercase" role="button" [routerLink]="['/all-games']">Todos os Jogos</button>
+    <app-navigation class="navigation mb-3" ></app-navigation>
+  
   </div>
 
   <router-outlet *ngIf="this.activatedrouterRef.children.length !== 0"></router-outlet>
