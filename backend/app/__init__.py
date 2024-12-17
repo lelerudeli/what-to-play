@@ -4,13 +4,17 @@ from app.dao.jogos_dao import *
 from config import Config
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_mail import Mail, Message
+from datetime import timedelta
 
 def iniciar_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     CORS(app)
     jwt = JWTManager(app)
-    
+    mail = Mail(app)  
+
+
     # Página de cadastro
     @app.route('/cadastrar/usuario', methods=['POST'])
     def cadastro():
@@ -106,5 +110,36 @@ def iniciar_app():
             return jsonify(usuario), 200  
         else:
             return jsonify({"erro": "Usuário não encontrado."}), 404
+        
+    @app.route('/redefinir/senha', methods=['POST'])
+    def redefinir_senha():
+        """Enviar um e-mail para redefinir a senha."""
+        email = request.json.get('emailUsuario')
+        
+        if not email:
+            return jsonify({"erro": "E-mail não fornecido."}), 400
+        
+        usuario_existe = verificar_email(app, email)  
+        
+        if not usuario_existe:
+            return jsonify({"erro": "E-mail não encontrado."}), 404
+        
+        nome_usuario_upper = usuario_existe['nomeUsuario'].upper()
+        
+        try:
+            msg = Message(
+                subject="Redefinição de Senha",
+                recipients=[email],
+                body=f"Olá, {usuario_existe['nomeUsuario']}!\n\n"
+                     f"Isso é um teste para Redefinição de Senha:\n\n"
+                     f"Código: TESTE {nome_usuario_upper}\n\n"
+                     "Se você não solicitou a redefinição, ignore este e-mail."
+            )
+            mail.send(msg)
+
+            return jsonify({"mensagem": "E-mail de redefinição enviado com sucesso."}), 200
+        except Exception as e:
+            return jsonify({"erro": "Erro ao enviar e-mail.", "detalhes": str(e)}), 500
+    
         
     return app

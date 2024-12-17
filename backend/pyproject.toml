@@ -13,6 +13,7 @@ flask-cors = "^5.0.0"
 pytz = "^2024.2"
 bcrypt = "^4.2.1"
 flask-jwt-extended = "^4.7.1"
+flask-mail = "^0.10.0"
 
 
 [build-system]
