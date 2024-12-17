@@ -258,6 +258,29 @@ def excluir_jogo_por_id(id):
         response.status_code = 500  # Internal Server Error
         return response
 
+@app.route('/api/usuarios/<int:id>', methods=['GET'])
+def get_usuario_por_id(id):
+    """Obter usuário por ID."""
+    try:
+        usuario = obter_usuario_por_id(con, id)
+
+        if usuario:
+            response = make_response(jsonify(usuario))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 200  # OK
+            return response
+        else:
+            response = make_response(jsonify({'error': 'Usuário não encontrado'}))
+            response.headers['Content-Type'] = 'application/json'
+            response.status_code = 404  # Not Found
+            return response
+
+    except Exception as e:
+        # Tratar exceções e retornar um erro 500
+        response = make_response(jsonify({'error': 'Erro ao obter usuário'}))
+        response.headers['Content-Type'] = 'application/json'
+        response.status_code = 500  # Internal Server Error
+        return response
 
 
 if __name__ == '__main__':
