@@ -12,7 +12,7 @@ def iniciar_app():
     jwt = JWTManager(app)
     
     # Página de cadastro
-    @app.route('/cadastro', methods=['POST'])
+    @app.route('/cadastrar/usuario', methods=['POST'])
     def cadastro():
         """Página inicial: cadastro de usuário"""
         usuario_infos = request.json
@@ -68,15 +68,39 @@ def iniciar_app():
         if jogos:
             return jsonify(jogos)
         return jsonify({"mensagem": "Nenhum jogo encontrado."}), 200
+    
+    @app.route('/cadastrar/jogo')
+    @jwt_required() #Obrigatório autenticar para acessar essa rota
+    def criar_jogo():
+        """Criação de um novo jogo."""
+        usuario_logado = get_jwt_identity()  # Obtém o usuário logado através do token
+        jogo_infos = request.json  
+        
+        if not jogo_infos:
+            return jsonify({"erro": "Dados do jogo não fornecido."}), 400
+        
+        # Adiciona o ID do usuário logado ao jogos_infos
+        jogo_infos['Usuario_idUsuario'] = usuario_logado["id"]
 
+        try:
+            novo_jogo_id = criar_jogo(app, jogo_infos)
+            return jsonify({
+                "mensagem": "Jogo criado com sucesso!",
+                "idJogo": novo_jogo_id
+            }), 201
+        except Exception as e:
+            return jsonify({
+                "erro": "Erro ao criar o jogo.",
+                "detalhes": str(e)
+            }), 500
+    
     @app.route('/perfil', methods = ['GET'])
     @jwt_required()
     def obter_dados_usuario():
         """Obter dados do usuário para o perfil"""
-        current_user = get_jwt_identity()  # Obtém informações do token
-        id_usuario = current_user["id"]
+        usuario_logado = get_jwt_identity()  # Obtém informações do token
+        id_usuario = usuario_logado["id"]
         usuario = obter_usuario_por_id(app, id_usuario)
-
 
         if usuario:
             return jsonify(usuario), 200  
