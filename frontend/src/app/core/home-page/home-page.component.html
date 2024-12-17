@@ -1,10 +1,12 @@
-<div *ngIf="this.activatedrouterRef.children.length === 0" class="home-page p-3 d-flex flex-column gap-4 justify-content-center align-items-center vh-100">
-    <header class="header d-flex flex-row ">
+<div *ngIf="this.activatedrouterRef.children.length === 0"
+  class="home-page p-3 justify-content-center align-items-center vh-100">
+  <div class="d-flex flex-column justify-content-center align-items-center mt-5">
+    <header class="header d-flex flex-row mb-5">
       <img src="/assets/image-removebg-preview.png" alt="Logo" class="logo" width="50">
       <h1>What to play?</h1>
     </header>
-    
-    <div class="options">
+
+    <div class="options mb-3">
       <div class="option">
         <img src="/assets/baralho-removebg-preview.png" alt="Baralho" width="110" role="button" routerLink="baralho">
         <p>Baralho</p>
@@ -14,15 +16,16 @@
         <p>Conversa</p>
       </div>
       <div class="option">
-        <img src="/assets/papel-removebg-preview.png" alt="Papel e Caneta" width="130" role="button" routerLink="papel">
+        <img src="/assets/papel-removebg-preview.png" alt="Papel e Caneta" width="140" role="button" routerLink="papel">
         <p>Papel e Caneta</p>
       </div>
-      <button class="btn all-games-btn text-uppercase" role="button" [routerLink]="['/all-games']">Todos os Jogos</button>
+      <button class="btn all-games-btn text-uppercase mt-3" role="button" [routerLink]="['/all-games']">Todos os
+        Jogos</button>
     </div>
-  
-    <app-navigation class="navigation mb-3" ></app-navigation>
-  
   </div>
 
-  <router-outlet *ngIf="this.activatedrouterRef.children.length !== 0"></router-outlet>
-  
+  <app-navigation class="navigation mb-3"></app-navigation>
+
+</div>
+
+<router-outlet *ngIf="this.activatedrouterRef.children.length !== 0"></router-outlet>
