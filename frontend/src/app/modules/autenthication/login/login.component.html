@@ -1,9 +1,9 @@
 <div class="login-container d-flex flex-column justify-content-center gap-2 vh-100">
   <!-- Logo e Mensagem -->
-  <div  *ngIf="isLoginPageSelected" class="login-header text-center d-flex flex-start p-3">
+  <div *ngIf="isLoginPageSelected" class="login-header text-center d-flex flex-start p-3">
     <img src="/assets/image-removebg-preview.png" alt="Logo What to Play?" class="mb-4" width="70" />
     <div class="text-start">
-      <h1 class="text-primary fw-bold" >Login</h1>
+      <h1 class="text-primary fw-bold">Login</h1>
       <p>
         Acesse o
         <strong>"What to Play?"</strong>
@@ -13,55 +13,29 @@
 
   <!-- Formulário de Login -->
   <div class="login-form d-flex flex-column align-items-center justify-content-center px-4">
-    <form
-      *ngIf="isLoginPageSelected"
-      class="w-100"
-      [formGroup]="form"
-    >
+    <form *ngIf="isLoginPageSelected" class="w-100" [formGroup]="form">
       <!-- Campo de E-mail -->
       <div class="form-group mb-3">
-        <input 
-          type="email"
-          class="form-control"
-          placeholder="Insira seu e-mail"
-          formControlName="email"
-        />
+        <input type="email" class="form-control" placeholder="Insira seu e-mail" formControlName="email" />
       </div>
-      
+
       <!-- Campo de Senha -->
       <div class="form-group mb-1">
-        <input 
-          type="password"
-          class="form-control"
-          placeholder="Insira sua senha"
-          formControlName="senha"
-        />
+        <input type="password" class="form-control" placeholder="Insira sua senha" formControlName="senha" />
       </div>
 
       <!-- Esqueceu a Senha -->
       <div class="text-start mb-5">
-        <span
-          class="text-accent cursor-pointer"
-          role="button"
-          (click)="isLoginPageSelected = false"
-        >
+        <span class="text-accent cursor-pointer" role="button" (click)="isLoginPageSelected = false">
           Esqueceu sua senha?
         </span>
       </div>
 
       <!-- Botões de Ação -->
-      <button
-        class="btn btn-primary w-100 mb-2 text-uppercase"
-        [disabled]="form.invalid"
-        (click)="authenticate()"
-      >
+      <button class="btn btn-primary w-100 mb-2 text-uppercase" [disabled]="form.invalid" (click)="authenticate()">
         Acessar
       </button>
-      <button
-        type="button"
-        class="btn btn-cadastro w-100 text-uppercase"
-        routerLink="/authentication/register"
-      >
+      <button type="button" class="btn btn-cadastro w-100 text-uppercase" routerLink="/authentication/register">
         Cadastrar
       </button>
     </form>
@@ -71,5 +45,5 @@
     <app-forgot-password (back)="isLoginPageSelected = true"></app-forgot-password>
   </div>
 
-  
+
 </div>

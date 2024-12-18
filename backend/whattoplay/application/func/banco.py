@@ -1,5 +1,7 @@
+import bcrypt
 from whattoplay.application.func.conexao_bd import conexao_abrir, conexao_fechar
 from bcrypt import checkpw
+from mysql.connector import Error as MySQLconnectorError
 
 # Abrir a conexão
 con = conexao_abrir("junction.proxy.rlwy.net", "root", "utknNNutQbWRwVpeoIiRFrpyCgQtBkEI", "whattoplay", 53813)
@@ -82,32 +84,36 @@ def atualizar_usuario(con, id_usuario, usuario_infos):
         
 def autenticar_usuario(con, login_infos):
     """Autentica um usuário com base no e-mail e na senha."""
-    
-    query = """
-    SELECT idUsuario, senhaUsuario
-    FROM Usuario
-    WHERE emailUsuario = %s
-    """
-    valores = (login_infos['email'],)  # Certifique-se de que é uma tupla
-    
     try:
+        emailUsuario = login_infos.get('emailUsuario')
+        senhaUsuario = login_infos.get('senhaUsuario')
+
+        if not emailUsuario or not senhaUsuario:
+            raise ValueError("Email e senha são obrigatórios.")
+
         with con.cursor() as cursor:
-            cursor.execute(query, valores)
-            resultado = cursor.fetchone()  # Busca uma linha correspondente
+            cursor.execute("SELECT idUsuario, senhaUsuario FROM Usuario WHERE emailUsuario = %s", (emailUsuario,))
+            resultado = cursor.fetchone()
+
+        if resultado:
+            usuario_id, senha_armazenada = resultado
+            if senhaUsuario == senha_armazenada:  # Verifica diretamente a senha sem criptografia
+                return usuario_id
+            else:
+                return None  # Senha incorreta
+        else:
+            return None  # Usuário não encontrado
+
+    except MySQLconnectorError as e:
+        print(f"Erro de banco de dados: {e}")
+    except ValueError as e:
+        print(f"Erro de validação: {e}")
     except Exception as e:
         print(f"Erro na autenticação: {e}")
-        return None
     finally:
-        conexao_fechar(con)
-    
-    if resultado:
-        id_usuario, senha_armazenada = resultado
-        # Verifica se a senha fornecida corresponde ao hash armazenado
-        if resultado and senha_armazenada:
-            if checkpw(login_infos['senha'].encode('utf-8'), senha_armazenada.encode('utf-8')):
-                return id_usuario
-        
-    return None
+        conexao_fechar(con)  # Garante que a conexão seja fechada
+
+    return None  # Retorna None em caso de erro
 
 def verificar_email(con, email):
     query = "SELECT idUsuario, emailUsuario FROM Usuario WHERE emailUsuario = %s"
