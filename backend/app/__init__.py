@@ -1,3 +1,4 @@
+import json
 from flask import Flask, request, jsonify
 from app.dao.usuario_dao import *
 from app.dao.jogos_dao import *
@@ -30,8 +31,8 @@ def iniciar_app():
             novo_id, tipo_usuario = criar_usuario(app, usuario_infos)
             
             # Cria o token JWT com as informações do usuário
-            access_token = create_access_token(identity={"id": novo_id,"tipo": tipo_usuario, "nome": usuario_infos.get('nomeUsuario') })
-        
+            access_token = create_access_token(identity=json.dumps({"id": novo_id, "tipo": tipo_usuario, "nome": usuario_infos.get('nomeUsuario')}))
+
             return jsonify({'id': novo_id, 'mensagem': 'Usuário cadastrado com sucesso!', 'token': access_token}), 201
         except Exception as e:
             return jsonify({'erro': 'Erro ao cadastrar o usuário.', 'detalhes': str(e)}), 500
@@ -49,7 +50,7 @@ def iniciar_app():
         
         if id_usuario:
             # Cria o token JWT com informações do usuário
-            access_token = create_access_token(identity={"id": id_usuario,"tipo": tipo_usuario, "nome": nome_usuario })
+            access_token = create_access_token(identity=json.dumps({"id": id_usuario, "tipo": tipo_usuario, "nome": nome_usuario}))
             return jsonify({
                 "mensagem": "Login realizado com sucesso!",
                 "token": access_token
@@ -77,7 +78,7 @@ def iniciar_app():
     @jwt_required() #Obrigatório autenticar para acessar essa rota
     def criar_jogo():
         """Criação de um novo jogo."""
-        usuario_logado = get_jwt_identity()  # Obtém o usuário logado através do token
+        usuario_logado = json.loads(get_jwt_identity())  # Obtém o usuário logado através do token
         jogo_infos = request.json  
         
         if not jogo_infos:
@@ -102,10 +103,13 @@ def iniciar_app():
     @jwt_required()
     def obter_dados_usuario():
         """Obter dados do usuário para o perfil"""
-        usuario_logado = get_jwt_identity()  # Obtém informações do token
+        
+        usuario_logado = json.loads(get_jwt_identity())# Obtém informações do token
+        if 'id' not in usuario_logado:
+            return jsonify({"erro": "Token inválido, 'id' não encontrado."}), 400
+    
         id_usuario = usuario_logado["id"]
         usuario = obter_usuario_por_id(app, id_usuario)
-
         if usuario:
             return jsonify(usuario), 200  
         else:

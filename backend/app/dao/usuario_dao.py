@@ -114,18 +114,42 @@ def verificar_email(app, email):
     return None  # Retorna None se o e-mail não for encontrado
 
 def obter_usuario_por_id(app, id_usuario):
-    """Obtém os detalhes de um usuário usando o id."""
+    """Obtém os detalhes de um usuário usando o id, incluindo a contagem e lista de jogos."""
     config = app.config
     con = conexao_abrir(config)
     
-    query = "SELECT * FROM Usuario WHERE idUsuario = %s"
+    #Obter os dados do usuário
+    query_usuario = "SELECT * FROM Usuario WHERE idUsuario = %s"
     
     with con.cursor(dictionary=True) as cursor:
-        cursor.execute(query, (id_usuario,))
-        usuario = cursor.fetchone()
+        cursor.execute(query_usuario, (id_usuario,))
+        usuario = cursor.fetchone() #Dados do usuário
+    
+    if usuario:
+        usuario['dataRegistro'] = usuario['dataRegistro'].strftime('%Y-%m-%d %H:%M:%S')
+        
+        #Obter a lista de jogos do usuário
+        query_jogos = "SELECT * FROM Jogo WHERE Usuario_idUsuario = %s"
+        
+        with con.cursor(dictionary=True) as cursor:
+            cursor.execute(query_jogos, (id_usuario,))
+            jogos = cursor.fetchall()  # Lista de jogos
+        
+        conexao_fechar(con)
+        
+        return {
+            'id': usuario['idUsuario'],
+            'nomeUsuario': usuario['nomeUsuario'],
+            'nomeCompleto': usuario['nomeCompleto'],
+            'emailUsuario': usuario['emailUsuario'],
+            'tipoUsuario': usuario['tipoUsuario'],
+            'dataRegistro': usuario['dataRegistro'],
+            'quantidadeJogos': usuario['jogosUsuario'],  # Campo armazenado no banco
+            'jogos': jogos  # Lista detalhada dos jogos
+        }
     
     conexao_fechar(con)
-    return usuario
+    return None
 
 def atualizar_usuario(app, id_usuario, usuario_infos):
     """Atualiza os dados de um usuário existente."""

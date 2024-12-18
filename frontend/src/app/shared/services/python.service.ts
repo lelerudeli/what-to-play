@@ -39,6 +39,11 @@ export class PythonService {
   }
 
   perfil(): Observable<any> {
-    return this.http.get<any>(`${this.API}/perfil`)
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+  
+    return this.http.get<any>(`${this.API}/perfil`, { headers });
   }
 }
