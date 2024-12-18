@@ -6,10 +6,10 @@
     
       <!-- Container do Perfil -->
       <div class="profile-container container">
-        <div class="profile-header text-center d-flex flex-column flex-md-row align-items-center justify-content-between p-3">
+        <div class="profile-header text-center d-flex flex-column flex-md-row align-items-center justify-content-between">
           <!-- Imagem de Perfil -->
           <div class="mb-3 mb-md-0 me-md-3">
-            <img src="../../../assets/profile-icon.jpeg" alt="profile-icon" class="img-fluid rounded-circle" style="width: 100px;">
+            <img src="../../../assets/profile-icon.jpeg" alt="profile-icon" class="img-fluid rounded-circle" style="width: 80px;">
           </div>
     
           <!-- Informações do Perfil -->
@@ -17,13 +17,9 @@
             <h1 class="profile-username fw-bold">
               <div *ngFor="let user of users">{{ user.username }}</div>
             </h1>
-            <h2 class="h4 mt-2">
-              Meu nome é
-              <span *ngFor="let user of users" class="text-primary">{{ user.nome }}</span>
-            </h2>
-    
+
             <!-- Novos Campos: Jogos e Amigos -->
-            <div  *ngFor="let user of users" class="mt-3 d-flex justify-content-around">
+            <div  *ngFor="let user of users" class="mt-2 d-flex gap-3 justify-content-around">
               <div class="text-center">
                 <h5>Jogos</h5>
                 <p class="fs-4">{{ user.jogos  }}</p>
@@ -37,16 +33,16 @@
         </div>
     
         <!-- Botões -->
-        <div class="profile-actions d-flex flex-row text-center gap-2 mb-3">
+        <div class="profile-actions d-flex flex-row text-center gap-3 mb-3">
           <button class="profile-btn">Editar perfil</button>
           <button class="profile-btn">Compartilhar perfil</button>
           <span class="material-icons profile-btn">person_add</span>
         </div>
     
         <!-- Navegação: Meus Jogos / Favoritos -->
-        <div class="profile-navigation mb-4 text-center">
-          <button class="toogle">MEUS JOGOS</button>
-          <button class="toogle">FAVORITOS</button>
+        <div class="profile-navigation mt-5 mb-4 text-center">
+          <button class="toogle me-2"  [ngClass]="{'active-tab': activeTab === 'meusJogos'}"   (click)="setActiveTab('meusJogos')" >MEUS JOGOS</button>
+          <button class="toogle"  [ngClass]="{'active-tab': activeTab === 'favoritos'}"  (click)="setActiveTab('favoritos')">FAVORITOS ❤ </button>
         </div>
     
         <!-- Lista de Jogos -->

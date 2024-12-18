@@ -11,10 +11,10 @@ export class ProfileComponent {
 
   users = [
     {
-      username: 'Joao_games',
-      nome: 'João',
-      jogos: 6,
-      amigos: 15
+      username: 'leletbettio',
+      nome: 'Letícia',
+      jogos: 3,
+      amigos: 5
     }
   ];
 
@@ -23,6 +23,8 @@ export class ProfileComponent {
     { name: 'TRUCO PAULISTA', description: '4 jogadores • em dupla' },
     { name: 'POKER', description: 'até 10 jogadores • individual' }
   ];
+
+  activeTab: string = 'meusJogos';
 
   constructor(
     private service: PythonService
@@ -37,5 +39,9 @@ export class ProfileComponent {
         console.error('Erro ao carregar perfil:', err);
       }
     });
+  }
+
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
   }
 }

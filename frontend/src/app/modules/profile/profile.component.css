@@ -12,6 +12,7 @@
     color:antiquewhite;
     border: 2px solid antiquewhite;
     border-radius: 30px;
+    font-size: 16px;
     padding: 5px;
   }
 
@@ -22,6 +23,24 @@
   
   .game-card {
     border-left: 5px solid #e63946;
+  }
+
+.toogle{
+    font-family: 'Archivo Black';
+    background-color: transparent;
+    color: aliceblue;
+    border-radius: 30px;
+    border: 2px solid aliceblue;
+    padding: 5px 5px;
+}
+
+.toggle:hover {
+    background-color: #ba0a11;
+  }
+
+.active-tab {
+    background-color: #ba0a11;
+    color: #fff;
   }
   
 .navigation {
