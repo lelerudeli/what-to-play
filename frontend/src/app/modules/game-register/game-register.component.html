@@ -4,32 +4,49 @@
     </div>
 
     <div class="d-flex flex-column justify-content-center gap-2">
-        <div class="text-center p-3">
+        <div class="text-center">
             <h1 class="text-primary fw-bold">Novo Jogo</h1>
         </div>
 
         <div class="register-form d-flex flex-column align-items-center justify-content-center px-4">
             <form class="w-100" [formGroup]="form">
 
-                <div class="form-group mb-3">
-                    <input type="text" class="form-control" placeholder="Nome do Jogo" formControlName="nomeJogo" />
+                <div class="form-group mb-2">
+                    <label class="label">Nome</label>
+                    <input type="text" class="form-control" placeholder="Ex: Truco" formControlName="nomeJogo" />
                 </div>
 
-                <div class="form-group mb-3">
-                    <input type="text" class="form-control" placeholder="Regras do Jogo" formControlName="regraJogo" />
+                <div class="form-group mb-2">
+                    <label class="label">Regras</label>
+                    <textarea class="form-control" name="Regra do Jogo" id="" placeholder="Ex: Os jogadores se dividem em grupos que jogam um contra o outro..." formControlName="regraJogo"></textarea>
                 </div>
 
-                <div class="form-group mb-3">
-                    <input type="number" class="form-control" placeholder="Número de Jogadores"
-                        formControlName="numeroJogadores" />
+                <div class="d-flex flex-row gap-1 " >
+                    <div class="form-group mb-2">
+                        <label class="label">Jogadores</label>
+                        <input type="number" class="form-control" placeholder="Min: 4"
+                            formControlName="minJogadores" />
+                    </div>
+    
+                    <div class="form-group mb-2">
+                        <label class="label"></label>
+                        <input type="number" class="form-control" placeholder="Máx: 6"
+                            formControlName="maxJogadores" />
+                    </div>
                 </div>
 
-                <div class="form-group mb-3">
-                    <select name="Tipo do Jogo" class="form-control" formControlName="tipoJogo"></select>
+                <div class="form-group mb-2">
+                    <label class="label">Tipo</label>
+                    <select name="Tipo do Jogo" class="form-control" formControlName="tipoJogo">
+                        <option *ngFor="let tipo of tiposJogo" [value]="tipo.value">{{ tipo.label }}</option>
+                    </select>
                 </div>
-
-                <div class="form-floating mb-4">
-                    <select name="Faixa etária" class="form-control" formControlName="faixaEtaria"></select>
+                
+                <div class="form-group mb-4">
+                    <label class="label">Faixa Etária</label>
+                    <select name="Faixa etária" class="form-control" formControlName="faixaEtaria">
+                        <option *ngFor="let faixa of faixasEtarias" [value]="faixa.value">{{ faixa.label }}</option>
+                    </select>
                 </div>
 
                 <!-- Botões de Ação -->

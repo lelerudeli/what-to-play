@@ -31,12 +31,12 @@ export class RegisterComponent {
 
   register(): void {
     this.isLoadingSubject.next(true);
-    this.pythonService.cadastro(this.form.value).pipe(
+    this.pythonService.cadastroUsuario(this.form.value).pipe(
       first()
     ).subscribe({
       next: () => {
         this.toast.success('Usuário cadastrado com sucesso!');
-        this.router.navigate(['home/home-page']);
+        this.router.navigate(['autenthication/login']);
         this.isLoadingSubject.next(false);
       },
       error: () => {

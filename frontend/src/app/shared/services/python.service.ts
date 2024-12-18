@@ -26,16 +26,16 @@ export class PythonService {
     localStorage.setItem('token', token);
   }
 
-  cadastro(body: Cadastro): Observable<any> {
-    return this.http.post<any>(`${this.API}/cadastro`, body);
+  cadastroUsuario(body: Cadastro): Observable<any> {
+    return this.http.post<any>(`${this.API}/cadastrar/usuario`, body);
   }
 
   getAllJogos(): Observable<any> {
     return this.http.get<any>(`${this.API}/jogos`);
   }
 
-  insertJogo(body: Jogo): Observable<any> {
-    return this.http.post<any>(`${this.API}/insert/jogos`, body);
+  cadastroJogo(body: Jogo): Observable<any> {
+    return this.http.post<any>(`${this.API}/cadastrar/jogo`, body);
   }
 
   perfil(): Observable<any> {
