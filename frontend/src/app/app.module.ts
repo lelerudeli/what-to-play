@@ -6,13 +6,14 @@ import { registerLocaleData } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app.routes';
 import { ToastrModule } from 'ngx-toastr';
 import { AlertService } from './shared/services/alert-service/alert.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from './shared/shared.module';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 registerLocaleData(localePt);
@@ -43,6 +44,9 @@ registerLocaleData(localePt);
     {
       provide: DEFAULT_CURRENCY_CODE,
       useValue: 'BRL',
+    },
+    {
+provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
     },
     provideAnimationsAsync(),
   ],

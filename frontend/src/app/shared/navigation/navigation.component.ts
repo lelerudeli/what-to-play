@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { PythonService } from '../services/python.service';
 
 
 @Component({
@@ -9,13 +10,15 @@ import { Router } from '@angular/router';
 })
 export class NavigationComponent {
 
-  constructor(private router: Router){}
+  constructor(private router: Router,
+    private service: PythonService
+  ) { }
 
   goHome(): void {
     this.router.navigate(['home/home-page']);
   }
 
-  goProfile(): void{
+  goProfile(): void {
     this.router.navigate(['profile']);
   }
 

@@ -3,7 +3,65 @@
     <div>
       <app-header></app-header>
     </div>
-  
+    
+      <!-- Container do Perfil -->
+      <div class="profile-container container">
+        <div class="profile-header text-center d-flex flex-column flex-md-row align-items-center justify-content-between p-3">
+          <!-- Imagem de Perfil -->
+          <div class="mb-3 mb-md-0 me-md-3">
+            <img src="../../../assets/profile-icon.jpeg" alt="profile-icon" class="img-fluid rounded-circle" style="width: 100px;">
+          </div>
+    
+          <!-- Informações do Perfil -->
+          <div class="text-center">
+            <h1 class="profile-username fw-bold">
+              <div *ngFor="let user of users">{{ user.username }}</div>
+            </h1>
+            <h2 class="h4 mt-2">
+              Meu nome é
+              <span *ngFor="let user of users" class="text-primary">{{ user.nome }}</span>
+            </h2>
+    
+            <!-- Novos Campos: Jogos e Amigos -->
+            <div  *ngFor="let user of users" class="mt-3 d-flex justify-content-around">
+              <div class="text-center">
+                <h5>Jogos</h5>
+                <p class="fs-4">{{ user.jogos  }}</p>
+              </div>
+              <div class="text-center">
+                <h5>Amigos</h5>
+                <p class="fs-4">{{ user.amigos }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Botões -->
+        <div class="profile-actions d-flex flex-row text-center gap-2 mb-3">
+          <button class="profile-btn">Editar perfil</button>
+          <button class="profile-btn">Compartilhar perfil</button>
+          <span class="material-icons profile-btn">person_add</span>
+        </div>
+    
+        <!-- Navegação: Meus Jogos / Favoritos -->
+        <div class="profile-navigation mb-4 text-center">
+          <button class="toogle">MEUS JOGOS</button>
+          <button class="toogle">FAVORITOS</button>
+        </div>
+    
+        <!-- Lista de Jogos -->
+        <div class="game-list">
+          <div *ngFor="let game of games" class="game-card mb-3 p-3 bg-white rounded shadow-sm d-flex justify-content-between">
+            <div>
+              <h4 class="fw-bold text-uppercase">{{ game.name }}🏆</h4>
+              <p class="text-muted">{{ game.description }}</p>
+            </div>
+            <div>
+              <span class="badge bg-success fs-6">L</span>
+            </div>
+          </div>
+        </div>
+      </div>    
   
     <div class="navigation mb-3">
       <app-navigation></app-navigation>

@@ -21,8 +21,9 @@ export class PythonService {
   }
 
   storeUserData(user: LoginResponse): void {
-    const { senhaUsuario, ...userWithoutSenha } = user;
+    const { senhaUsuario, token, ...userWithoutSenha } = user;
     localStorage.setItem('user', JSON.stringify(userWithoutSenha));
+    localStorage.setItem('token', token);
   }
 
   cadastro(body: Cadastro): Observable<any> {

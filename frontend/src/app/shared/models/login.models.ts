@@ -5,5 +5,6 @@ export interface Login {
 
 export interface LoginResponse extends Login {
     id: number,
-    nome: string
+    nome: string,
+    token: string
 }
