@@ -1,31 +1,61 @@
 .profile-container {
     max-width: 600px;
     margin: auto;
-  }
-  
-  .profile-header img {
+}
+
+.profile-header img {
     border: 3px solid #ba0a11;
-  }
-  
-  .profile-btn{
+}
+
+.profile-btn {
     background-color: #ba0a11;
-    color:antiquewhite;
+    color: antiquewhite;
     border: 2px solid antiquewhite;
     border-radius: 30px;
     font-size: 16px;
     padding: 5px;
-  }
+}
 
-  .btn-danger, .btn-outline-danger {
+.btn-danger,
+.btn-outline-danger {
     border-radius: 20px;
     width: 150px;
-  }
-  
-  .game-card {
-    border-left: 5px solid #e63946;
-  }
+}
 
-.toogle{
+.game-list-container {
+    position: relative;
+    height: calc(100vh - 200px);
+    /* Ajuste para calcular o espaço sem sobrepor a navegação e o header */
+    overflow: hidden;
+    /* Impede que o conteúdo vaze */
+}
+
+.game-list {
+    height: 100%;
+    /* Preenche o espaço do container pai */
+    overflow-y: auto;
+    /* Ativa scroll vertical */
+    padding-right: 10px;
+    /* Adiciona espaçamento para evitar que o scroll sobreponha o conteúdo */
+    margin-top: 10px;
+    /* Pequeno espaçamento superior */
+}
+
+.game-card {
+    background-color: transparent;
+    border: 4px solid aliceblue;
+    border-radius: 30px;
+}
+
+.game-card img {
+    border-radius: 30px;
+}
+
+p {
+    color: aliceblue;
+}
+
+.toogle {
     font-family: 'Archivo Black';
     background-color: transparent;
     color: aliceblue;
@@ -36,13 +66,13 @@
 
 .toggle:hover {
     background-color: #ba0a11;
-  }
+}
 
 .active-tab {
     background-color: #ba0a11;
     color: #fff;
-  }
-  
+}
+
 .navigation {
     width: 90%;
     position: fixed;

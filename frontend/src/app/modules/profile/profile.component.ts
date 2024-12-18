@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PythonService } from '../../shared/services/python.service';
 import { Profile } from '../../shared/models/perfil.model';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -9,14 +10,9 @@ import { Profile } from '../../shared/models/perfil.model';
 })
 export class ProfileComponent {
 
-  users = [
-    {
-      username: 'leletbettio',
-      nome: 'Letícia',
-      jogos: 3,
-      amigos: 5
-    }
-  ];
+  users$: Observable<Profile> = of();
+
+  arroba: string = '@';
 
   games = [
     { name: 'PIFE', description: 'até 8 jogadores • individual' },
@@ -25,23 +21,38 @@ export class ProfileComponent {
   ];
 
   activeTab: string = 'meusJogos';
+  isFavorite = false;
 
   constructor(
     private service: PythonService
   ){}
 
   ngOnInit(): void {
-    this.service.perfil().subscribe({
-      next: (perfil) => {
-        console.log('Perfil:', perfil);
-      },
-      error: (err) => {
-        console.error('Erro ao carregar perfil:', err);
-      }
-    });
+    this.users$ = this.service.perfil();
   }
 
   setActiveTab(tab: string) {
     this.activeTab = tab;
+  }
+
+  toggleCurtida(): void {
+    this.isFavorite = !this.isFavorite;
+  }
+
+  getCardClassificacaoImage(classificacao: string) {
+    switch (classificacao) {
+      case '18':
+        return 'assets/18.PNG';
+      case '16':
+        return 'assets/16.PNG';
+      case '14':
+        return 'assets/14.PNG';
+      case '12':
+        return 'assets/12.PNG';
+      case '10':
+        return 'assets/10.PNG';
+      default:
+        return 'assets/livre.PNG';
+    }
   }
 }

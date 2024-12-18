@@ -1,4 +1,9 @@
+import { Jogo } from "./jogo.model";
+
 export interface Profile {
-    username: string,
-    nome: string
+    nomeUsuario: string,
+    nomeCompleto: string,
+    jogos: Jogo[],
+    quantidadeJogos: number,
+    emailUsuario: string,
 }

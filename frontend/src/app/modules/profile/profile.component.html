@@ -5,7 +5,7 @@
     </div>
     
       <!-- Container do Perfil -->
-      <div class="profile-container container">
+      <div *ngIf="users$ |async as user" class="profile-container container">
         <div class="profile-header text-center d-flex flex-column flex-md-row align-items-center justify-content-between">
           <!-- Imagem de Perfil -->
           <div class="mb-3 mb-md-0 me-md-3">
@@ -15,18 +15,18 @@
           <!-- Informações do Perfil -->
           <div class="text-center">
             <h1 class="profile-username fw-bold">
-              <div *ngFor="let user of users">{{ user.username }}</div>
+              <div>{{arroba}}{{ user.nomeUsuario }}</div>
             </h1>
 
             <!-- Novos Campos: Jogos e Amigos -->
-            <div  *ngFor="let user of users" class="mt-2 d-flex gap-3 justify-content-around">
+            <div class="mt-2 d-flex gap-3 justify-content-around">
               <div class="text-center">
                 <h5>Jogos</h5>
-                <p class="fs-4">{{ user.jogos  }}</p>
+                <p class="fs-4">{{ user.jogos.length  }}</p>
               </div>
               <div class="text-center">
                 <h5>Amigos</h5>
-                <p class="fs-4">{{ user.amigos }}</p>
+                <p class="fs-4"> 0 </p>
               </div>
             </div>
           </div>
@@ -46,14 +46,18 @@
         </div>
     
         <!-- Lista de Jogos -->
-        <div class="game-list">
-          <div *ngFor="let game of games" class="game-card mb-3 p-3 bg-white rounded shadow-sm d-flex justify-content-between">
-            <div>
-              <h4 class="fw-bold text-uppercase">{{ game.name }}🏆</h4>
-              <p class="text-muted">{{ game.description }}</p>
+        <div class="game-list-container">
+          <div class="game-list">
+            <div *ngFor="let game of user.jogos" class="game-card mb-3 p-2 shadow-sm d-flex justify-content-between">
+              <div>
+                <div>{{arroba}}{{ user.nomeUsuario }}</div>
+                <h4 class="fw-bold text-uppercase">{{ game.nomeJogo }}🏆</h4>
+                <p>{{ game.regraJogo }}</p>
+              </div>
+              <div class="d-flex flex-column justify-content-center align-items-center gap-2" [ngSwitch]="game.faixaEtaria">
+                <img [src]="getCardClassificacaoImage(game.faixaEtaria)" alt="" width="28px;" height="28px;" class="classificacao">
+                <mat-icon class="favorite" (click)="toggleCurtida()">{{ isFavorite ? 'favorite' : 'favorite_border'}}</mat-icon>
             </div>
-            <div>
-              <span class="badge bg-success fs-6">L</span>
             </div>
           </div>
         </div>
