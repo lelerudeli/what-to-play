@@ -15,6 +15,6 @@ class Config:
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USE_SSL = False
-    MAIL_USERNAME = 'seu_email@gmail.com'
-    MAIL_PASSWORD = 'sua_senha_do_email'
-    MAIL_DEFAULT_SENDER = 'seu_email@gmail.com'
+    MAIL_USERNAME = 'whatoplaydevs@gmail.com'
+    MAIL_PASSWORD = 'whatoplay'
+    MAIL_DEFAULT_SENDER = 'whatoplaydevs@gmail.com'

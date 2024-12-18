@@ -47,20 +47,22 @@ def criar_jogo(app, jogo_infos):
     ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
     """
     valores = (
-        jogo_infos['nomeJogo'],
-        jogo_infos['regraJogo'],
-        jogo_infos['tipoJogo'],
-        jogo_infos['faixaEtaria'],
-        jogo_infos['numeroCurtidas'],
-        jogo_infos['numeroJogadores'],
-        jogo_infos['Usuario_idUsuario'],
-        jogo_infos['ClassificacaoEtaria_idClassificacao']
+        jogo_infos.get('nomeJogo') or 'Nome não fornecido',  # Valor padrão
+        jogo_infos.get('regraJogo') or 'Regras não fornecidas',
+        jogo_infos.get('tipoJogo') or 'Outro',
+        jogo_infos.get('faixaEtaria', 0),
+        jogo_infos.get('numeroCurtidas', 0),
+        jogo_infos.get('numeroJogadores', 1),
+        jogo_infos['Usuario_idUsuario'],  # Obrigatório
+        jogo_infos.get('ClassificacaoEtaria_idClassificacao')
     )
+    
     with con.cursor() as cursor:
         cursor.execute(query, valores)
         con.commit()
     jogo = cursor.lastrowid
     conexao_fechar(con)
+    
     return jogo
 
 def atualizar_jogo(app, id_jogo, jogo_infos):

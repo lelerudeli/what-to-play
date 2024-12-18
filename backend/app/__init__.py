@@ -73,7 +73,7 @@ def iniciar_app():
             return jsonify(jogos)
         return jsonify({"mensagem": "Nenhum jogo encontrado."}), 200
     
-    @app.route('/cadastrar/jogo')
+    @app.route('/cadastrar/jogo', methods=['POST'])
     @jwt_required() #Obrigatório autenticar para acessar essa rota
     def criar_jogo():
         """Criação de um novo jogo."""
